@@ -1,0 +1,74 @@
+run -all
+KERNEL:          5  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=x
+KERNEL:         15  rst_=0 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=0
+KERNEL:         25  rst_=0 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=0
+KERNEL:         35  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=0
+KERNEL:         45  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=0 DOUT=0
+KERNEL:         55  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=0 DOUT=0
+KERNEL:         65  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=100 DOUT=0
+KERNEL:         75  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=100
+KERNEL:         85  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=99
+KERNEL:         85  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:         95  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=98
+KERNEL:         95  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        105  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=97
+KERNEL:        105  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        115  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=96
+KERNEL:        115  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        125  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=95
+KERNEL:        125  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        135  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=94
+KERNEL:        135  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        145  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=93
+KERNEL:        145  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        155  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=92
+KERNEL:        155  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        165  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=91
+KERNEL:        165  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        175  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=90
+KERNEL:        175  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        185  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=90
+KERNEL:        195  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=100 DOUT=90
+KERNEL:        205  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=100
+KERNEL:        215  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=101
+KERNEL:        215  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        225  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=102
+KERNEL:        225  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        235  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=103
+KERNEL:        235  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        245  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=104
+KERNEL:        245  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        255  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=105
+KERNEL:        255  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        265  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=106
+KERNEL:        265  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        275  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=107
+KERNEL:        275  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        285  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=108
+KERNEL:        285  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        295  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=109
+KERNEL:        295  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        305  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=110
+KERNEL:        305  		COUNTER COUNT CHECK FAIL:: UPDOWN COUNT using $past 
+KERNEL: 
+KERNEL:        315  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=110
+KERNEL:        325  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=110

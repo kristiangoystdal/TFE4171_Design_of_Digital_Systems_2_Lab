@@ -1,0 +1,19 @@
+#!/bin/csh -fx
+
+\rm -rf work
+\rm test_bus_protocol_nobugs.log
+
+#=======================================
+# C R E A T E / S E T  'work' lib
+#--------------------------------
+vlib work
+
+#=======================================
+# C O M P I L E
+#---------------
+vlog -sv test_bus_protocol.sv bus_protocol.v bus_protocol_property.sv +acc +cover +define+nobugs
+                                    
+#=======================================
+# S I M
+#------
+vsim -assertdebug -coverage -c test_bus_protocol -l test_bus_protocol_nobugs.log -do "run -all; quit"

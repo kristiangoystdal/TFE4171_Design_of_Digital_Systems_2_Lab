@@ -1,0 +1,12 @@
+.cache/*
+.config/*
+.local/*
+.mozilla/*
+.vscode-server/*
+.bash_history
+.bash_logout
+.bashrc
+.emacs
+.kshrc
+.lesshst
+.zshrc

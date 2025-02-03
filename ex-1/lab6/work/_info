@@ -1,0 +1,126 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11f vlog 2021.4_2 2021.12, Dec  4 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/courses/desdigsys2/2025s/dds225s17/ex-1/lab6
+T_opt
+!s110 1738598974
+VHCoAgO@V:hBNPQ0F2AM8?3
+04 17 4 work test_pci_protocol fast 0
+=1-90b11c1d54d5-67a0ea3c-583dc-36a6
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OE;O;2021.4_2;73
+vpci_master
+Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z3 !s110 1738598970
+!i10b 1
+!s100 a@0R@gkWY`D86CMJYLIV11
+Ia`_AAC_fn@`hY6STEo7=43
+S1
+R0
+Z4 w1738332397
+8pci_master.v
+Fpci_master.v
+!i122 0
+L0 9 94
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OE;L;2021.4_2;73
+r1
+!s85 0
+31
+Z7 !s108 1738598969.000000
+Z8 !s107 test_pci_protocol.sv|pci_protocol_property.sv|pci_target.v|pci_master.v|
+Z9 !s90 -sv|pci_master.v|pci_target.v|pci_protocol_property.sv|test_pci_protocol.sv|+acc|+cover|+define+check5|
+!i113 0
+Z10 !s102 +cover
+Z11 o-sv +acc +cover -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z12 !s92 -sv +acc +cover +define+check5 -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vpci_protocol_property
+R2
+R3
+!i10b 1
+!s100 cZ9VAOERhLG29HG9B8jgE0
+I@VX7=h2VzBgdYF0^`O?Kj2
+S1
+R0
+w1738599305
+8pci_protocol_property.sv
+Fpci_protocol_property.sv
+!i122 0
+L0 4 63
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R12
+R1
+vpci_target
+R2
+R3
+!i10b 1
+!s100 PoSYda<L`2dY<Nb6:SN3P1
+IQk7=WiSi3?Ad]7HgZ]>M_2
+S1
+R0
+R4
+8pci_target.v
+Fpci_target.v
+!i122 0
+L0 9 77
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R12
+R1
+vtest_pci_protocol
+R2
+R3
+!i10b 1
+!s100 f0I`:g]7K<WUINOgBi[6=1
+Ii;LNXTCdR4:zfX[MRGRJP2
+S1
+R0
+R4
+8test_pci_protocol.sv
+Ftest_pci_protocol.sv
+!i122 0
+L0 4 31
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R12
+R1

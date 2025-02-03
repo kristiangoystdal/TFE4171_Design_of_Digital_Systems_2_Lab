@@ -1,0 +1,104 @@
+# vsim -assertdebug -coverage -c test_bus_protocol -l test_bus_protocol_check1.log -do " run -all; quit" 
+# Start time: 16:36:01 on Feb 03,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 2021.4_2 linux Dec  4 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.test_bus_protocol(fast)
+# Loading work.bus_protocol(fast)
+# Loading work.bus_protocol_property(fast)
+#  run -all
+# SCENARIO 1
+#          0  clk=1 dValid=0 data=xx dAck=0
+#         10  clk=1 dValid=0 data=00 dAck=0
+#         20  clk=1 dValid=1 data=00 dAck=0
+#         30  clk=1 dValid=1 data=00 dAck=0
+#         40  clk=1 dValid=1 data=00 dAck=1
+#         50  clk=1 dValid=0 data=00 dAck=0
+# 
+# 
+# SCENARIO 2
+#         60  clk=1 dValid=0 data=00 dAck=0
+#         70  clk=1 dValid=1 data=00 dAck=0
+#         80  clk=1 dValid=1 data=00 dAck=0
+#         90  clk=1 dValid=1 data=00 dAck=0
+#        100  clk=1 dValid=1 data=00 dAck=1
+#        110  clk=1 dValid=0 data=00 dAck=0
+# 
+# 
+# SCENARIO 3
+#        120  clk=1 dValid=0 data=00 dAck=0
+#        130  clk=1 dValid=1 data=00 dAck=0
+#        140  clk=1 dValid=1 data=00 dAck=0
+#        150  clk=1 dValid=1 data=00 dAck=0
+#        160  clk=1 dValid=1 data=00 dAck=0
+#        170  clk=1 dValid=1 data=00 dAck=1
+#        170  checkValid FAIL
+#        180  clk=1 dValid=0 data=00 dAck=0
+# 
+# 
+# SCENARIO 4
+#        190  clk=1 dValid=0 data=00 dAck=0
+#        200  clk=1 dValid=1 data=00 dAck=0
+#        210  clk=1 dValid=1 data=00 dAck=0
+#        220  clk=1 dValid=1 data=00 dAck=0
+#        230  clk=1 dValid=1 data=00 dAck=0
+#        240  clk=1 dValid=1 data=00 dAck=0
+#        240  checkValid FAIL
+#        250  clk=1 dValid=1 data=00 dAck=1
+#        250  checkValid FAIL
+# 
+# 
+# SCENARIO 5
+#        260  clk=1 dValid=0 data=00 dAck=0
+#        270  clk=1 dValid=1 data=00 dAck=0
+#        280  clk=1 dValid=1 data=00 dAck=0
+#        290  clk=1 dValid=1 data=00 dAck=0
+#        300  clk=1 dValid=1 data=00 dAck=0
+#        310  clk=1 dValid=1 data=00 dAck=1
+#        310  checkValid FAIL
+#        320  clk=1 dValid=1 data=00 dAck=0
+#        320  checkValid FAIL
+# 
+# 
+# SCENARIO 6
+#        330  clk=1 dValid=0 data=00 dAck=0
+#        340  clk=1 dValid=1 data=00 dAck=0
+#        350  clk=1 dValid=0 data=00 dAck=0
+#        350  checkValid FAIL
+#        360  clk=1 dValid=0 data=00 dAck=0
+#        370  clk=1 dValid=0 data=00 dAck=0
+# 
+# 
+# SCENARIO 7
+#        380  clk=1 dValid=0 data=00 dAck=0
+#        390  clk=1 dValid=1 data=00 dAck=0
+#        400  clk=1 dValid=1 data=00 dAck=0
+#        410  clk=1 dValid=1 data=xx dAck=1
+#        420  clk=1 dValid=0 data=00 dAck=0
+#        430  clk=1 dValid=1 data=00 dAck=0
+#        440  clk=1 dValid=1 data=01 dAck=0
+#        450  clk=1 dValid=1 data=00 dAck=1
+#        460  clk=1 dValid=0 data=00 dAck=0
+#        470  clk=1 dValid=0 data=00 dAck=0
+# 
+# 
+#        480  clk=1 dValid=0 data=00 dAck=0
+# ** Note: Data structure takes 4748636 bytes of memory
+#          Process time 0.01 seconds
+#          $finish    : bus_protocol.v(134)
+#    Time: 485 ns  Iteration: 1  Instance: /test_bus_protocol/bp1
+# End time: 16:36:05 on Feb 03,2025, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 0

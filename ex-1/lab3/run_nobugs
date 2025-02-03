@@ -1,0 +1,18 @@
+#!/bin/csh -fx
+\rm -rf work
+\rm test_fifo_nobugs.log
+
+#=======================================
+# C R E A T E / S E T  'work' lib
+#--------------------------------
+vlib work
+
+#--------------------------------------------------
+#To compile without bugs
+#--------------------------------------------------
+vlog -sv fifo.v fifo_property.sv test_fifo.sv
+
+#--------------------------------------------------
+#To Simulate 
+#--------------------------------------------------
+vsim -assertdebug -coverage -c test_fifo -l test_fifo_nobugs.log -do " run -all; quit"
