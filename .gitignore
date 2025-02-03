@@ -5,8 +5,10 @@
 .vscode-server/*
 .bash_history
 .bash_logout
+.bash_profile
 .bashrc
 .emacs
 .kshrc
 .lesshst
 .zshrc
+*.zip
