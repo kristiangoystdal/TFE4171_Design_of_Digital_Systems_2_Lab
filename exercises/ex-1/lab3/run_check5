@@ -1,0 +1,21 @@
+#!/bin/csh -fx
+
+\rm -rf work
+\rm test_fifo_check5.log
+
+#=======================================
+# C R E A T E / S E T  'work' lib
+#--------------------------------
+vlib work
+
+#--------------------------------------------------
+# To compile with bug in RTL that is caught by CHECK # 5
+# CHECK #5. Check that if fifo is empty and you attempt to read (but not write) that
+# the rd_ptr does not change.
+#--------------------------------------------------
+vlog -sv fifo.v fifo_property.sv test_fifo.sv +define+check5
+
+#--------------------------------------------------
+#To Simulate 
+#--------------------------------------------------
+vsim -assertdebug -coverage -c test_fifo -l test_fifo_check5.log -do " run -all; quit"

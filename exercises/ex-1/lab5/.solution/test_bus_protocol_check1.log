@@ -1,0 +1,74 @@
+run -all
+KERNEL: SCENARIO 1
+KERNEL:          0  clk=1 dValid=0 data=xx dAck=0
+KERNEL:         10  clk=1 dValid=0 data=00 dAck=0
+KERNEL:         20  clk=1 dValid=1 data=00 dAck=0
+KERNEL:         30  clk=1 dValid=1 data=00 dAck=0
+KERNEL:         40  clk=1 dValid=1 data=00 dAck=1
+KERNEL:         50  clk=1 dValid=0 data=00 dAck=0
+KERNEL: 
+KERNEL: 
+KERNEL: SCENARIO 2
+KERNEL:         60  clk=1 dValid=0 data=00 dAck=0
+KERNEL:         70  clk=1 dValid=1 data=00 dAck=0
+KERNEL:         80  clk=1 dValid=1 data=00 dAck=0
+KERNEL:         90  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        100  clk=1 dValid=1 data=00 dAck=1
+KERNEL:        110  clk=1 dValid=0 data=00 dAck=0
+KERNEL: 
+KERNEL: 
+KERNEL: SCENARIO 3
+KERNEL:        120  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        130  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        140  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        150  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        160  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        170  clk=1 dValid=1 data=00 dAck=1
+KERNEL:        180  clk=1 dValid=0 data=00 dAck=0
+KERNEL: 
+KERNEL: 
+KERNEL: SCENARIO 4
+KERNEL:        190  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        200  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        210  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        220  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        230  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        240  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        250  clk=1 dValid=1 data=00 dAck=1
+KERNEL:        250  checkValid FAIL
+KERNEL: 
+KERNEL: 
+KERNEL: SCENARIO 5
+KERNEL:        260  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        270  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        280  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        290  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        300  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        310  clk=1 dValid=1 data=00 dAck=1
+KERNEL:        320  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        320  checkValid FAIL
+KERNEL: 
+KERNEL: 
+KERNEL: SCENARIO 6
+KERNEL:        330  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        340  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        350  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        350  checkValid FAIL
+KERNEL:        360  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        370  clk=1 dValid=0 data=00 dAck=0
+KERNEL: 
+KERNEL: 
+KERNEL: SCENARIO 7
+KERNEL:        380  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        390  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        400  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        410  clk=1 dValid=1 data=xx dAck=1
+KERNEL:        420  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        430  clk=1 dValid=1 data=00 dAck=0
+KERNEL:        440  clk=1 dValid=1 data=01 dAck=0
+KERNEL:        450  clk=1 dValid=1 data=00 dAck=1
+KERNEL:        460  clk=1 dValid=0 data=00 dAck=0
+KERNEL:        470  clk=1 dValid=0 data=00 dAck=0
+KERNEL: 
+KERNEL: 
+KERNEL:        480  clk=1 dValid=0 data=00 dAck=0

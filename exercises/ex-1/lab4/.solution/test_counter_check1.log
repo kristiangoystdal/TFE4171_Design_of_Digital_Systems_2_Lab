@@ -1,0 +1,61 @@
+# vsim -assertdebug -coverage -c test_counter -l test_counter_check1.log -do " run -all; quit" 
+# Start time: 11:29:37 on Nov 21,2014
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.3c_2 linux Sep 24 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.test_counter(fast)
+# ** Warning: (vsim-8492) The -assertdebug option was specified but there are no accessible objects.
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+#  run -all
+#          5  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=x
+#         15  rst_=0 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=x
+#         20  		COUNTER RESET CHECK FAIL:: rst_=0 data_out=x 
+# 
+#         25  rst_=0 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=x
+#         25  		COUNTER RESET CHECK FAIL:: rst_=0 data_out=x 
+# 
+#         35  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=x
+#         45  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=0 DOUT=x
+#         55  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=0 DOUT=0
+#         65  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=100 DOUT=0
+#         75  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=100
+#         85  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=101
+#         95  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=102
+#        105  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=103
+#        115  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=104
+#        125  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=105
+#        135  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=106
+#        145  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=107
+#        155  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=108
+#        165  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=109
+#        175  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=110
+#        185  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=110
+#        195  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=100 DOUT=110
+#        205  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=100
+#        215  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=99
+#        225  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=98
+#        235  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=97
+#        245  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=96
+#        255  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=95
+#        265  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=94
+#        275  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=93
+#        285  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=92
+#        295  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=91
+#        305  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=90
+#        315  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=90
+#        325  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=90
+# ** Note: Data structure takes 4685872 bytes of memory
+#          Process time 0.00 seconds
+#          $finish    : test_counter.sv(29)
+#    Time: 325 ns  Iteration: 1  Instance: /test_counter
+# End time: 11:29:40 on Nov 21,2014, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 2

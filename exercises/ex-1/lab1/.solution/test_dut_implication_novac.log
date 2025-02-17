@@ -1,0 +1,34 @@
+# vsim -assertdebug -coverage -c test_dut -l test_dut_implication_novac.log -do "run -all; quit" 
+# Start time: 11:05:10 on Jan 21,2015
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.3c_2 linux Sep 24 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.test_dut(fast)
+# ** Warning: (vsim-8492) The -assertdebug option was specified but there are no accessible objects.
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+# run -all
+#         10  clk=1 req=0 gnt=0
+#         30  clk=1 req=1 gnt=0
+#         50  clk=1 req=0 gnt=1
+#         70  clk=1 req=0 gnt=1
+#         70  		 test_dut.dut1.dut_bind_inst.cpreqGnt PASS
+#         90  clk=1 req=1 gnt=0
+#        110  clk=1 req=0 gnt=0
+#        130  clk=1 req=0 gnt=0
+#        130  		 test_dut.dut1.dut_bind_inst.preqGnt FAIL
+#        150  clk=1 req=0 gnt=0
+# ** Note: Data structure takes 4685872 bytes of memory
+#          Process time 0.01 seconds
+#          $finish    : test_dut.sv(47)
+#    Time: 150 ns  Iteration: 1  Instance: /test_dut
+# End time: 11:05:13 on Jan 21,2015, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 2

@@ -1,0 +1,43 @@
+run -all
+KERNEL:          0  clk=1 reset_=1 FRAME_=x AD=xxxxxxxx C_BE_=xxxx IRDY_=x TRDY_=x DEVSEL_=x
+KERNEL:         10  clk=1 reset_=0 FRAME_=1 AD=zzzzzzzz C_BE_=xxxx IRDY_=1 TRDY_=x DEVSEL_=1
+KERNEL:         20  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=xxxx IRDY_=1 TRDY_=x DEVSEL_=1
+KERNEL: 
+KERNEL: 	Drive FRAME_, AD and Read Command
+KERNEL:         30  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=x DEVSEL_=1
+KERNEL:         30  CHECK1:checkPCI_AD_CBE FAIL
+KERNEL: 
+KERNEL: 
+KERNEL: 	Drive IRDY_ and Byte Enables
+KERNEL:         40  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=1111 IRDY_=0 TRDY_=x DEVSEL_=0
+KERNEL: 
+KERNEL: 	Data Transfer Phase
+KERNEL:         50  clk=1 reset_=1 FRAME_=0 AD=cafecafe C_BE_=1111 IRDY_=0 TRDY_=0 DEVSEL_=0
+KERNEL: 
+KERNEL: 	TARGET Wait Mode
+KERNEL:         60  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=1111 IRDY_=0 TRDY_=1 DEVSEL_=0
+KERNEL: 
+KERNEL: 	Data Transfer Phase
+KERNEL:         70  clk=1 reset_=1 FRAME_=0 AD=faceface C_BE_=1111 IRDY_=0 TRDY_=0 DEVSEL_=0
+KERNEL: 
+KERNEL: 	Master Wait Mode
+KERNEL:         80  clk=1 reset_=1 FRAME_=0 AD=cafeface C_BE_=1111 IRDY_=1 TRDY_=0 DEVSEL_=0
+KERNEL: 
+KERNEL: 	Data Transfer Phase
+KERNEL:         90  clk=1 reset_=1 FRAME_=0 AD=cafeface C_BE_=1111 IRDY_=0 TRDY_=0 DEVSEL_=0
+KERNEL: 
+KERNEL: 	FRAME_ De-asserted
+KERNEL:        100  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=0 TRDY_=1 DEVSEL_=1
+KERNEL: 
+KERNEL: 	CYCLE COMPLETE
+KERNEL:        110  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        120  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        130  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        140  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        150  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        160  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        170  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        180  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        190  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        200  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1
+KERNEL:        210  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=1111 IRDY_=1 TRDY_=1 DEVSEL_=1

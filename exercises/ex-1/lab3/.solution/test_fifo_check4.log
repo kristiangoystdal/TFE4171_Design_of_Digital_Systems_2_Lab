@@ -1,0 +1,28 @@
+run -all
+KERNEL:          5  rst_=1 clk=1 fifo_write=0 fifo_read=0 fifo_full=x fifo_empty=x wr_ptr=x rd_ptr=x cnt=x
+KERNEL:         15  rst_=0 clk=1 fifo_write=0 fifo_read=0 fifo_full=0 fifo_empty=1 wr_ptr=0 rd_ptr=0 cnt=0
+KERNEL:         25  rst_=0 clk=1 fifo_write=0 fifo_read=0 fifo_full=0 fifo_empty=1 wr_ptr=0 rd_ptr=0 cnt=0
+KERNEL:         35  rst_=1 clk=1 fifo_write=0 fifo_read=0 fifo_full=0 fifo_empty=1 wr_ptr=0 rd_ptr=0 cnt=0
+KERNEL:         45  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=1 wr_ptr=0 rd_ptr=0 cnt=0
+KERNEL:         55  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=1 rd_ptr=0 cnt=1
+KERNEL:         65  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=2 rd_ptr=0 cnt=2
+KERNEL:         75  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=3 rd_ptr=0 cnt=3
+KERNEL:         85  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=4 rd_ptr=0 cnt=4
+KERNEL:         95  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=5 rd_ptr=0 cnt=5
+KERNEL:        105  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=6 rd_ptr=0 cnt=6
+KERNEL:        115  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=7 rd_ptr=0 cnt=7
+KERNEL:        125  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=1 fifo_empty=0 wr_ptr=8 rd_ptr=0 cnt=8
+KERNEL:        135  rst_=1 clk=1 fifo_write=0 fifo_read=0 fifo_full=1 fifo_empty=0 wr_ptr=9 rd_ptr=0 cnt=8
+KERNEL:        135		 FAIL::fifo_full_write_stable_wrptr condition
+KERNEL: 
+KERNEL:        145  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=1 fifo_empty=0 wr_ptr=9 rd_ptr=0 cnt=8
+KERNEL:        155  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=1 cnt=7
+KERNEL:        165  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=2 cnt=6
+KERNEL:        175  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=3 cnt=5
+KERNEL:        185  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=4 cnt=4
+KERNEL:        195  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=5 cnt=3
+KERNEL:        205  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=6 cnt=2
+KERNEL:        215  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=9 rd_ptr=7 cnt=1
+KERNEL:        225  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=1 wr_ptr=9 rd_ptr=8 cnt=0
+KERNEL:        235  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=1 wr_ptr=9 rd_ptr=8 cnt=0
+KERNEL:        245  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=1 wr_ptr=9 rd_ptr=8 cnt=0

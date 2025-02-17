@@ -1,0 +1,42 @@
+run -all
+KERNEL:          5  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=x
+KERNEL:         15  rst_=0 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=0
+KERNEL:         25  rst_=0 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=0
+KERNEL:         35  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=x DOUT=0
+KERNEL:         45  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=0 DOUT=1
+KERNEL:         45  		COUNTER HOLD CHECK FAIL:: counter HOLD 
+KERNEL: 
+KERNEL:         55  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=0 DOUT=0
+KERNEL:         65  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=100 DOUT=0
+KERNEL:         75  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=100
+KERNEL:         85  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=101
+KERNEL:         95  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=102
+KERNEL:        105  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=103
+KERNEL:        115  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=104
+KERNEL:        125  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=105
+KERNEL:        135  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=106
+KERNEL:        145  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=107
+KERNEL:        155  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=108
+KERNEL:        165  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=109
+KERNEL:        175  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=110
+KERNEL:        185  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=1 DIN=100 DOUT=111
+KERNEL:        185  		COUNTER HOLD CHECK FAIL:: counter HOLD 
+KERNEL: 
+KERNEL:        195  rst_=1 clk=1 count_enb=0 ld_cnt_=0 updn_cnt=1 DIN=100 DOUT=112
+KERNEL:        195  		COUNTER HOLD CHECK FAIL:: counter HOLD 
+KERNEL: 
+KERNEL:        205  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=100
+KERNEL:        215  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=99
+KERNEL:        225  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=98
+KERNEL:        235  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=97
+KERNEL:        245  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=96
+KERNEL:        255  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=95
+KERNEL:        265  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=94
+KERNEL:        275  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=93
+KERNEL:        285  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=92
+KERNEL:        295  rst_=1 clk=1 count_enb=1 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=91
+KERNEL:        305  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=90
+KERNEL:        315  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=89
+KERNEL:        315  		COUNTER HOLD CHECK FAIL:: counter HOLD 
+KERNEL: 
+KERNEL:        325  rst_=1 clk=1 count_enb=0 ld_cnt_=1 updn_cnt=0 DIN=100 DOUT=88

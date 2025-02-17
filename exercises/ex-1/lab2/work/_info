@@ -1,0 +1,47 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11f vlog 2021.4_2 2021.12, Dec  4 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/courses/desdigsys2/2025s/dds225s17/ex-1/lab2
+T_opt
+!s110 1738591621
+Vo<W_[O:GVFFn@_C8=FA8D1
+04 23 4 work test_overlap_nonoverlap fast 0
+=1-90b11c1d54d5-67a0cd82-d507b-40b1
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OE;O;2021.4_2;73
+vtest_overlap_nonoverlap
+DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1738591617
+!i10b 1
+!s100 [=jfiQfLC9LoWa67gHAMM2
+ITB?HalA@<Q;G0nAL]E_5B2
+S1
+R0
+w1738332394
+8test_overlap_nonoverlap.sv
+Ftest_overlap_nonoverlap.sv
+!i122 0
+L0 1 65
+VDg1SIo80bB@j0V0VzS_@n1
+OE;L;2021.4_2;73
+r1
+!s85 0
+31
+!s108 1738591616.000000
+!s107 test_overlap_nonoverlap.sv|
+!s90 -sv|test_overlap_nonoverlap.sv|+define+nonoverlap|
+!i113 0
+o-sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+!s92 -sv +define+nonoverlap -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
