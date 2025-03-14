@@ -1,0 +1,60 @@
+module multiplier_property_suite(clk, rst, multiplier, multiplicand, product, ready, start);
+
+    // Inputs
+    input clk;
+    input rst;
+    input [3:0] multiplier;
+    input [3:0] multiplicand;
+    input [7:0] product;
+    input ready;
+    input start;
+
+// System Verilog library for TiDAL
+`include "tidal.sv"
+
+// TIDAL properties must be enclosed within begin_tda and end_tda macros
+`begin_tda(tda)
+
+    // Sequence that constrains operands to values used in the documentation (can be used for debugging)
+    sequence define_operands;
+        (multiplicand == 13) && (multiplier == 11);
+    endsequence;
+
+    // Timepoint definition
+    sequence t_ready; await_o(t, 1, ready, 12); endsequence
+
+    // Property definition
+    property compute_product;
+        // Declare freeze variables
+        logic [3:0] multiplier_t;
+        logic [3:0] multiplicand_t;
+        // Freeze variables
+        t ##0 set_freeze(multiplier_t, multiplier) and
+        t ##0 set_freeze(multiplicand_t, multiplicand) and
+        // Assumption list
+        t ##0 start and
+        t ##0 ready
+        //and t ##0 define_operands // constrains operands values if uncommented, can be used for debugging
+    implies
+        t_ready ##0 ready and
+        t_ready ##0 product == multiplier_t * multiplicand_t;
+    endproperty
+
+    assert_compute_product: assert property(@(posedge clk) disable iff(rst==1) compute_product);
+
+`end_tda
+
+`begin_sva(sva)
+
+    // Assertion definition
+    property reset;
+        rst |=> ready;
+    endproperty
+
+    assert_reset: assert property(@(posedge clk) reset);
+`end_sva
+
+endmodule
+
+// Bind assertion module to DUV
+bind multiplier multiplier_property_suite inst_multiplier_property_suite(.*);

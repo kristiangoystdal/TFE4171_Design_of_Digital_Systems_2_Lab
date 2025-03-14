@@ -1,0 +1,83 @@
+# vsim -assertdebug -coverage -c test_ex1_1 -l test-ex1-1-check5.log -do " run -all; quit" 
+# Start time: 15:47:47 on Feb 24,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "ex1_1(fast)".
+# //  Questa Sim
+# //  Version 2021.4_2 linux Dec  4 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.test_ex1_1(fast)
+# Loading work.ex1_1(fast)
+# Loading work.ex1_1_property(fast)
+#  run -all
+#          5  rst=0 clk=1 validi=1 DIN=1 valido=x DOUT=x
+#         15  rst=1 clk=1 validi=1 DIN=1 valido=0 DOUT=x
+#         25  rst=0 clk=1 validi=1 DIN=1 valido=0 DOUT=x
+#         35  rst=0 clk=1 validi=0 DIN=2 valido=0 DOUT=x
+#         45  rst=0 clk=1 validi=1 DIN=3 valido=0 DOUT=3
+#         55  rst=0 clk=1 validi=0 DIN=4 valido=0 DOUT=5
+#         65  rst=0 clk=1 validi=1 DIN=5 valido=0 DOUT=10
+#         75  rst=0 clk=1 validi=1 DIN=6 valido=0 DOUT=17
+#         85  rst=0 clk=1 validi=0 DIN=7 valido=0 DOUT=26
+#         95  rst=0 clk=1 validi=0 DIN=8 valido=0 DOUT=37
+#        105  rst=0 clk=1 validi=1 DIN=9 valido=0 DOUT=50
+#        115  rst=0 clk=1 validi=1 DIN=10 valido=0 DOUT=65
+#        125  rst=0 clk=1 validi=1 DIN=11 valido=0 DOUT=82
+#        135  rst=0 clk=1 validi=0 DIN=12 valido=1 DOUT=101
+#        135  		DATA_OUT CHECK PASS:: a = 9 b = 10 c = 11 data_out=122 
+# 
+#        145  rst=0 clk=1 validi=1 DIN=13 valido=0 DOUT=122
+#        155  rst=0 clk=1 validi=1 DIN=14 valido=0 DOUT=145
+#        165  rst=0 clk=1 validi=1 DIN=15 valido=0 DOUT=170
+#        175  rst=0 clk=1 validi=1 DIN=16 valido=1 DOUT=197
+#        175  		DATA_OUT CHECK PASS:: a = 13 b = 14 c = 15 data_out=226 
+# 
+#        185  rst=0 clk=1 validi=1 DIN=17 valido=1 DOUT=226
+#        185  		DATA_OUT CHECK PASS:: a = 14 b = 15 c = 16 data_out=257 
+# 
+#        195  rst=0 clk=1 validi=0 DIN=18 valido=1 DOUT=257
+#        195  		DATA_OUT CHECK PASS:: a = 15 b = 16 c = 17 data_out=290 
+# 
+#        205  rst=0 clk=1 validi=1 DIN=19 valido=0 DOUT=290
+#        215  rst=0 clk=1 validi=1 DIN=20 valido=0 DOUT=325
+#        225  rst=0 clk=1 validi=1 DIN=21 valido=0 DOUT=362
+#        235  rst=0 clk=1 validi=1 DIN=22 valido=1 DOUT=401
+#        235  		DATA_OUT CHECK PASS:: a = 19 b = 20 c = 21 data_out=442 
+# 
+#        245  rst=0 clk=1 validi=0 DIN=23 valido=1 DOUT=442
+#        245  		DATA_OUT CHECK PASS:: a = 20 b = 21 c = 22 data_out=485 
+# 
+#        255  rst=0 clk=1 validi=0 DIN=24 valido=0 DOUT=485
+#        265  rst=0 clk=1 validi=1 DIN=25 valido=0 DOUT=530
+#        275  rst=0 clk=1 validi=1 DIN=26 valido=0 DOUT=577
+#        285  rst=0 clk=1 validi=1 DIN=27 valido=0 DOUT=626
+#        295  rst=0 clk=1 validi=1 DIN=28 valido=1 DOUT=677
+#        295  		DATA_OUT CHECK PASS:: a = 25 b = 26 c = 27 data_out=730 
+# 
+#        305  rst=0 clk=1 validi=1 DIN=29 valido=1 DOUT=730
+#        305  		DATA_OUT CHECK PASS:: a = 26 b = 27 c = 28 data_out=785 
+# 
+#        315  rst=0 clk=1 validi=1 DIN=30 valido=1 DOUT=785
+#        315  		DATA_OUT CHECK PASS:: a = 27 b = 28 c = 29 data_out=842 
+# 
+#        325  rst=0 clk=1 validi=0 DIN=31 valido=1 DOUT=842
+#        325  		DATA_OUT CHECK PASS:: a = 28 b = 29 c = 30 data_out=901 
+# 
+#        335  rst=0 clk=1 validi=0 DIN=31 valido=0 DOUT=901
+# ** Note: Data structure takes 4879708 bytes of memory
+#          Process time 0.01 seconds
+#          $finish    : test-ex1-1.sv(28)
+#    Time: 335 ns  Iteration: 1  Instance: /test_ex1_1
+# End time: 15:47:50 on Feb 24,2025, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0

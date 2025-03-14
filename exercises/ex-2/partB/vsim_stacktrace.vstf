@@ -1,0 +1,34 @@
+# Current time Mon Feb 24 16:22:04 2025
+# Program = vsim
+# Id = "2021.4_2"
+# Version = "2021.12"
+# Date = "Dec  4 2021"
+# Platform = "linux"
+# Signature = 90ea855c3cfa6fae2f46f986790ae86d
+# 0    0xf6d0941b: 'alu_packet.sv:18'
+# 1    0xf6d09f79: 'alu_tb.sv:21'
+# 2    0x09cf6e39: '<unknown (@0x9cf6e39)>'
+# 3    0x0810bb75: '<unknown (@0x810bb75)>'
+# 4    0x083127bd: '<unknown (@0x83127bd)>'
+# 5    0x0881bc88: '<unknown (@0x881bc88)>'
+# 6    0x08821227: '<unknown (@0x8821227)>'
+# 7    0x08822fff: '<unknown (@0x8822fff)>'
+# 8    0x08ae5e27: '<unknown (@0x8ae5e27)>'
+# 9    0x0a17957b: '<unknown (@0xa17957b)>'
+# 10   0x0a178b6a: '<unknown (@0xa178b6a)>'
+# 11   0x0a17e0f3: '<unknown (@0xa17e0f3)>'
+# 12   0x0a17e20a: '<unknown (@0xa17e20a)>'
+# 13   0x0a17f8b1: '<unknown (@0xa17f8b1)>'
+# 14   0x0a17fc26: '<unknown (@0xa17fc26)>'
+# 15   0x08d692a7: '<unknown (@0x8d692a7)>'
+# 16   0x0a227927: '<unknown (@0xa227927)>'
+# 17   0x0a281bfc: '<unknown (@0xa281bfc)>'
+# 18   0x0a284a68: '<unknown (@0xa284a68)>'
+# 19   0x0a240e28: '<unknown (@0xa240e28)>'
+# 20   0x0a241135: '<unknown (@0xa241135)>'
+# 21   0x0a01ab75: '<unknown (@0xa01ab75)>'
+# 22   0x087e67df: '<unknown (@0x87e67df)>'
+# 23   0x08682cd9: '<unknown (@0x8682cd9)>'
+# End of Stack Trace
+
+

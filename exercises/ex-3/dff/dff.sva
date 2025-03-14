@@ -1,0 +1,28 @@
+// @lang=sva @ts=2
+
+module dff_property_suite (clk,d_i,q_o);
+
+input logic clk;
+input logic d_i;
+input logic q_o;
+
+// define properties 
+
+property behavior1;
+  q_o == $past(d_i);
+endproperty
+
+property behavior2;
+  q_o == $past(d_i, 2);
+endproperty
+
+// tell the tool what properties to check
+
+a_behavior1: assert property (@(posedge clk) behavior1);
+a_behavior2: assert property (@(posedge clk) behavior2);
+
+endmodule
+
+// connect this verification module with the design
+
+bind dff dff_property_suite inst_dff_property_suite(.*);

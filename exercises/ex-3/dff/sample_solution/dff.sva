@@ -1,0 +1,30 @@
+// @lang=sva @ts=2
+
+module dff_property_suite (clk,d_i,q_o);
+
+input logic clk;
+input logic d_i;
+input logic q_o;
+
+// This property correctly describes the behavior of the analyzed D flip-flop.
+
+property behavior1;
+  q_o == $past(d_i);
+endproperty
+
+
+// This property is wrong. It expects the DFF output to hold the value
+// from the input two cycles ago. (This is not how a conventional DFF
+// works.) As a result, this property fails even though the design is
+// correct.
+   
+property behavior2;
+  q_o == $past(d_i,2);
+endproperty
+
+a_behavior1: assert property (@(posedge clk) behavior1);
+a_behavior2: assert property (@(posedge clk) behavior2);
+
+endmodule
+
+bind dff dff_property_suite inst_dff_property_suite(.*);

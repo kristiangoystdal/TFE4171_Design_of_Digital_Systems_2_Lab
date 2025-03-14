@@ -1,0 +1,56 @@
+// @lang=tda @ts=2
+
+module proc_property_suite(reset,clk, IR, REG_FILE,CONTROL_STATE,
+dataIn, writeEnable, dataOut,dataAddr,instrAddr,instrIn);
+
+input logic reset;
+input logic clk;
+input logic [15:0] IR;
+input logic [7:0][7:0] REG_FILE;
+input logic [2:0] CONTROL_STATE;
+input logic [7:0] dataIn;
+input logic writeEnable;
+input logic [7:0] dataOut;
+input logic [7:0] dataAddr;
+input logic [15:0] instrAddr;
+input logic [15:0] instrIn;
+
+parameter c_IF  = 3'b001;
+parameter c_ID  = 3'b010;
+parameter c_EX  = 3'b011;
+parameter c_MEM = 3'b100;
+parameter c_WB  = 3'b101;
+
+parameter c_ALU_REG = 4'b0001;
+
+parameter c_ADD_IMM = 4'b0010;
+parameter c_OR_IMM  = 4'b0011;
+
+parameter c_LOAD    = 4'b0100;
+parameter c_STORE   = 4'b0101;
+
+parameter c_JUMP    = 4'b0110;
+parameter c_BRANCH  = 4'b0111;
+
+parameter c_ADD     = 3'b001;
+parameter c_OR      = 3'b010;
+
+// sequence definition for SVA property
+
+`define true 1
+
+`include "tidal.sv"
+
+`begin_tda(ops)
+
+// sequence definition for TiDAL property
+
+// your operational properties
+
+// assert your properties
+
+`end_tda
+
+endmodule
+
+// your bind statement

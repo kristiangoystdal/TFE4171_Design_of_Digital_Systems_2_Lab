@@ -1,0 +1,45 @@
+# vsim -assertdebug -coverage -c test_ex1_1 -l test-ex1-1-check1.log -do " run -all; quit" 
+# Start time: 14:55:09 on Feb 24,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# //  Questa Sim
+# //  Version 2021.4_2 linux Dec  4 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.test_ex1_1(fast)
+# Loading work.ex1_1(fast)
+# Loading work.ex1_1_property(fast)
+#  run -all
+#          5  rst=0 clk=1 validi=1 DIN=1 valido=x DOUT=x
+#         15  rst=1 clk=1 validi=1 DIN=1 valido=0 DOUT=0
+#         15  		RESET CHECK PASS:: rst_=1 data_out=0 
+# 
+#         25  rst=0 clk=1 validi=1 DIN=1 valido=0 DOUT=0
+#         35  rst=0 clk=1 validi=0 DIN=2 valido=0 DOUT=0
+#         45  rst=0 clk=1 validi=1 DIN=3 valido=0 DOUT=0
+#         55  rst=0 clk=1 validi=0 DIN=4 valido=0 DOUT=0
+#         65  rst=0 clk=1 validi=1 DIN=5 valido=0 DOUT=0
+#         75  rst=0 clk=1 validi=1 DIN=6 valido=0 DOUT=0
+#         85  rst=0 clk=1 validi=0 DIN=7 valido=0 DOUT=0
+#         95  rst=0 clk=1 validi=0 DIN=8 valido=0 DOUT=0
+#        105  rst=0 clk=1 validi=1 DIN=9 valido=0 DOUT=0
+#        115  rst=0 clk=1 validi=1 DIN=10 valido=0 DOUT=0
+#        125  rst=0 clk=1 validi=1 DIN=11 valido=0 DOUT=0
+#        135  rst=0 clk=1 validi=0 DIN=12 valido=1 DOUT=101
+#        145  rst=0 clk=1 validi=0 DIN=12 valido=0 DOUT=101
+# ** Note: Data structure takes 4879708 bytes of memory
+#          Process time 0.03 seconds
+#          $finish    : test-ex1-1.sv(28)
+#    Time: 145 ns  Iteration: 1  Instance: /test_ex1_1
+# End time: 14:55:12 on Feb 24,2025, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0

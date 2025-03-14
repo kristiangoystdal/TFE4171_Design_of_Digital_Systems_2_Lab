@@ -1,0 +1,43 @@
+// @lang=sva @ts=2
+
+module jkff_property_suite(clk, j_i, k_i, q_o);
+
+input logic clk;
+input logic j_i,k_i;
+input logic q_o;
+
+// definition of your sequences
+// (not used in this example)
+
+// definition of your properties
+
+// the first property demonstrates use of non-overlapping implication
+property jkff_1;
+j_i == 1'b1 && k_i == 1'b1 |=> q_o == !$past(q_o); 
+endproperty
+
+// the second property demonstrates use of overlapping implication
+property jkff_2;
+j_i == 1'b1 && k_i == 1'b0 |-> ##1 q_o == 1'b1;
+endproperty 
+
+property jkff_3;
+j_i == 1'b0 && k_i == 1'b1 |=> q_o == 1'b0;
+endproperty
+
+property jkff_4;
+j_i == 1'b0 && k_i == 1'b0 |=> q_o == $past(q_o);
+endproperty
+
+// make assertion on your properties
+
+inst_jkff_1: assert property(@(posedge clk) jkff_1); 
+inst_jkff_2: assert property(@(posedge clk) jkff_2);
+inst_jkff_3: assert property(@(posedge clk) jkff_3);
+inst_jkff_4: assert property(@(posedge clk) jkff_4);
+endmodule
+
+// bind the property checker module to the design
+
+bind jkff jkff_property_suite inst_jkff_property_suite(.*);
+

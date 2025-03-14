@@ -1,0 +1,16 @@
+// @lang=vli @ts=2
+
+completeness readserial;
+disable iff: (!reset_n); 
+inputs: reset_n, rxd;
+
+determination_requirements:
+  determined(valid);
+  if (valid) determined(data); endif;
+
+reset_property:
+  sva/inst_readserial_properties/ops/a_reset;
+property_graph:
+  sva/inst_readserial_properties/ops/a_reset -> sva/inst_readserial_properties/ops/a_read_byte;
+  sva/inst_readserial_properties/ops/a_read_byte -> sva/inst_readserial_properties/ops/a_read_byte;
+end completeness;

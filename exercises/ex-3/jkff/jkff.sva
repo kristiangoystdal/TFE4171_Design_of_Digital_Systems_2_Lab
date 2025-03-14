@@ -1,0 +1,34 @@
+// @lang=sva @ts=2
+
+module jkff_property_suite(clk, j_i, k_i, q_o);
+
+input logic clk;
+input logic j_i,k_i;
+input logic q_o;
+
+// sequence definitions
+
+
+// property definitions
+property set_high;
+    j_i && !k_i |-> ##1 q_o == 'b1;
+endproperty
+
+property set_low;
+    !j_i && k_i |-> ##1 q_o == 'b0;
+endproperty
+
+property toggle;
+    j_i && k_i |-> ##1 q_o == !$past(q_o);
+endproperty
+
+// make assertion on properties to be checked
+a_set_high: assert property (@(posedge clk) set_high);
+a_set_low: assert property (@(posedge clk) set_low);
+a_toggle: assert property (@(posedge clk) toggle);
+
+endmodule
+
+// bind the verification IP to the design
+
+bind jkff jkff_property_suite inst_jkff_property_suite(.*);

@@ -1,0 +1,84 @@
+# vsim -assertdebug -coverage -c test_ex1_1 -l test-ex1-1-check2.log -do " run -all; quit" 
+# Start time: 15:14:04 on Feb 24,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# //  Questa Sim
+# //  Version 2021.4_2 linux Dec  4 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.test_ex1_1(fast)
+# Loading work.ex1_1(fast)
+# Loading work.ex1_1_property(fast)
+#  run -all
+#          5  rst=0 clk=1 validi=1 DIN=1 valido=x DOUT=x
+#         15  rst=1 clk=1 validi=1 DIN=1 valido=0 DOUT=0
+#         25  rst=0 clk=1 validi=1 DIN=1 valido=0 DOUT=0
+#         35  rst=0 clk=1 validi=0 DIN=2 valido=0 DOUT=0
+#         35  		VALIDO CHECK FAIL:: validi=0 valido=0 
+# 
+#         45  rst=0 clk=1 validi=1 DIN=3 valido=0 DOUT=0
+#         55  rst=0 clk=1 validi=0 DIN=4 valido=0 DOUT=0
+#         65  rst=0 clk=1 validi=1 DIN=5 valido=0 DOUT=0
+#         75  rst=0 clk=1 validi=1 DIN=6 valido=0 DOUT=0
+#         85  rst=0 clk=1 validi=0 DIN=7 valido=0 DOUT=0
+#         95  rst=0 clk=1 validi=0 DIN=8 valido=0 DOUT=0
+#        105  rst=0 clk=1 validi=1 DIN=9 valido=0 DOUT=0
+#        115  rst=0 clk=1 validi=1 DIN=10 valido=0 DOUT=0
+#        125  rst=0 clk=1 validi=1 DIN=11 valido=0 DOUT=0
+#        135  rst=0 clk=1 validi=0 DIN=12 valido=1 DOUT=101
+#        135  		VALIDO CHECK PASS:: validi=0 valido=0 
+# 
+#        145  rst=0 clk=1 validi=1 DIN=13 valido=0 DOUT=101
+#        155  rst=0 clk=1 validi=1 DIN=14 valido=0 DOUT=101
+#        165  rst=0 clk=1 validi=1 DIN=15 valido=0 DOUT=101
+#        175  rst=0 clk=1 validi=1 DIN=16 valido=1 DOUT=197
+#        175  		VALIDO CHECK PASS:: validi=1 valido=0 
+# 
+#        185  rst=0 clk=1 validi=1 DIN=17 valido=0 DOUT=197
+#        185  		VALIDO CHECK FAIL:: validi=1 valido=0 
+# 
+#        195  rst=0 clk=1 validi=0 DIN=18 valido=0 DOUT=197
+#        195  		VALIDO CHECK FAIL:: validi=0 valido=0 
+# 
+#        205  rst=0 clk=1 validi=1 DIN=19 valido=0 DOUT=197
+#        215  rst=0 clk=1 validi=1 DIN=20 valido=0 DOUT=197
+#        225  rst=0 clk=1 validi=1 DIN=21 valido=0 DOUT=197
+#        235  rst=0 clk=1 validi=1 DIN=22 valido=1 DOUT=401
+#        235  		VALIDO CHECK PASS:: validi=1 valido=0 
+# 
+#        245  rst=0 clk=1 validi=0 DIN=23 valido=0 DOUT=401
+#        245  		VALIDO CHECK FAIL:: validi=0 valido=0 
+# 
+#        255  rst=0 clk=1 validi=0 DIN=24 valido=0 DOUT=401
+#        265  rst=0 clk=1 validi=1 DIN=25 valido=0 DOUT=401
+#        275  rst=0 clk=1 validi=1 DIN=26 valido=0 DOUT=401
+#        285  rst=0 clk=1 validi=1 DIN=27 valido=0 DOUT=401
+#        295  rst=0 clk=1 validi=1 DIN=28 valido=1 DOUT=677
+#        295  		VALIDO CHECK PASS:: validi=1 valido=0 
+# 
+#        305  rst=0 clk=1 validi=1 DIN=29 valido=0 DOUT=677
+#        305  		VALIDO CHECK FAIL:: validi=1 valido=0 
+# 
+#        315  rst=0 clk=1 validi=1 DIN=30 valido=0 DOUT=677
+#        315  		VALIDO CHECK FAIL:: validi=1 valido=1 
+# 
+#        325  rst=0 clk=1 validi=0 DIN=31 valido=1 DOUT=842
+#        325  		VALIDO CHECK PASS:: validi=0 valido=0 
+# 
+#        335  rst=0 clk=1 validi=0 DIN=31 valido=0 DOUT=842
+# ** Note: Data structure takes 4879708 bytes of memory
+#          Process time 0.01 seconds
+#          $finish    : test-ex1-1.sv(28)
+#    Time: 335 ns  Iteration: 1  Instance: /test_ex1_1
+# End time: 15:14:05 on Feb 24,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
