@@ -46,11 +46,232 @@ parameter c_OR      = 3'b010;
 // sequence definition for TiDAL property
 
 // your operational properties
+property verify_add_reg;
+    logic [2:0] rs1;
+    logic [2:0] rs2;
+    logic [2:0] rd;
+    logic [7:0] content_rs1;
+    logic [7:0] content_rs2;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(rs2, instrIn[ 8:6]) and
+    t ##0 set_freeze(rd, instrIn[ 5:3]) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 set_freeze(content_rs2, REG_FILE[rs2]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_ALU_REG and
+    t ##0 instrIn[2:0] == c_ADD
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_EX and
+    t ##3 CONTROL_STATE == c_MEM and
+    t ##4 CONTROL_STATE == c_WB and
+    t ##5 CONTROL_STATE == c_IF and
+    t ##5 ((rs1 == 0 and REG_FILE[rd] == content_rs2) or    // rd = rs2 + 0
+           (rs2 == 0 and REG_FILE[rd] == content_rs1) or    // rd = rs1 + 0
+           (rs2 == 0 and rs1 == 0 and REG_FILE[rd] == 0) or // rd = 0 + 0
+           (REG_FILE[rd] == content_rs1 + content_rs2) or   // rd = rs1 + rs2
+           !(|rd))                                          // ignore because rd is register 0
+endproperty
+
+property verify_or_reg;logic [2:0] rs1;
+    logic [2:0] rs2;
+    logic [2:0] rd;
+    logic [7:0] content_rs1;
+    logic [7:0] content_rs2;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(rs2, instrIn[ 8:6]) and
+    t ##0 set_freeze(rd, instrIn[ 5:3]) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 set_freeze(content_rs2, REG_FILE[rs2]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_ALU_REG and
+    t ##0 instrIn[2:0] == c_OR
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_EX and
+    t ##3 CONTROL_STATE == c_MEM and
+    t ##4 CONTROL_STATE == c_WB and
+    t ##5 CONTROL_STATE == c_IF and
+    t ##5 ((rs1 == 0 and REG_FILE[rd] == content_rs2) or    // rd = rs2 + 0
+           (rs2 == 0 and REG_FILE[rd] == content_rs1) or    // rd = rs1 + 0
+           (rs2 == 0 and rs1 == 0 and REG_FILE[rd] == 0) or // rd = 0 | 0
+           (REG_FILE[rd] == content_rs1 | content_rs2) or   // rd = rs1 + rs2
+           !(|rd))                                          // ignore because rd is register 0
+endproperty
+
+property verify_add_imm;
+    logic [2:0] rs1;
+    logic [2:0] rd;
+    logic [7:0] content_rs1;
+    logic [5:0] immediate;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(rd, instrIn[8:6]) and
+    t ##0 set_freeze(immediate, instrIn[5:0]) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_ADD_IMM
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_EX and
+    t ##3 CONTROL_STATE == c_MEM and
+    t ##4 CONTROL_STATE == c_WB and
+    t ##5 CONTROL_STATE == c_IF and
+    t ##5 ((rs1 == 0 and REG_FILE[rd] == 8'(signed'(immediate))) or  // rd = rs1
+           (REG_FILE[rd] == content_rs1 + 8'(signed'(immediate))) or // rd = rs1 | immediate
+           !(|rd))                                                   // ignore because rd is register 0
+endproperty
+
+property verify_or_imm;
+    logic [2:0] rs1;
+    logic [2:0] rd;
+    logic [7:0] content_rs1;
+    logic [5:0] immediate;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(rd, instrIn[8:6]) and
+    t ##0 set_freeze(immediate, instrIn[5:0]) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_OR_IMM
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_EX and
+    t ##3 CONTROL_STATE == c_MEM and
+    t ##4 CONTROL_STATE == c_WB and
+    t ##5 CONTROL_STATE == c_IF and
+    t ##5 ((rs1 == 0 and REG_FILE[rd] == 8'(signed'(immediate))) or  // rd = rs1
+           (REG_FILE[rd] == content_rs1 | 8'(signed'(immediate))) or // rd = rs1 | immediate
+           !(|rd))                                                   // ignore because rd is register 0
+endproperty
+
+property verify_load;
+    logic [2:0] rs1;
+    logic [2:0] rd;
+    logic [7:0] content_rs1;
+    logic [5:0] immediate;
+    logic [7:0] data_received;
+    logic [7:0] addr_requested;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(rd, instrIn[8:6]) and
+    t ##0 set_freeze(immediate, instrIn[5:0]) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_LOAD and 
+    t ##3 set_freeze(data_received, dataIn) and
+    t ##3 set_freeze(addr_requested, dataAddr)
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_EX and
+    t ##3 CONTROL_STATE == c_MEM and
+    t ##3 (addr_requested == content_rs1 + 8'(signed'(immediate)) or
+          (rs1 == 0 and addr_requested == 8'(signed'(immediate)))) and
+    t ##3 writeEnable == 0 and
+    t ##4 CONTROL_STATE == c_WB and
+    t ##5 CONTROL_STATE == c_IF and
+    t ##5 ((rs1 == 0 and REG_FILE[rd] == 0) or
+           (REG_FILE[rd] == data_received) or
+           (rd == 0))                                                // ignore because rd is register 0
+endproperty
+
+property verify_store;
+    logic [2:0] rs1;
+    logic [2:0] rs2;
+    logic [7:0] content_rs1;
+    logic [7:0] content_rs2;
+    logic [5:0] immediate;
+    logic [7:0] data_sent;
+    logic [7:0] addr_sent;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(rs2, instrIn[8:6]) and
+    t ##0 set_freeze(immediate, instrIn[5:0]) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 set_freeze(content_rs2, REG_FILE[rs2]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_STORE and 
+    t ##3 set_freeze(data_sent, dataOut) and
+    t ##3 set_freeze(addr_sent, dataAddr)
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_EX and
+    t ##3 CONTROL_STATE == c_MEM and
+    t ##3 (addr_sent == content_rs1 + 8'(signed'(immediate)) or
+          (rs1 == 0 and addr_sent == 8'(signed'(immediate)))) and
+    t ##3 (data_sent == content_rs2 or
+          (rs2 == 0 and data_sent == 0)) and
+    t ##3 writeEnable == 1 and
+    t ##4 CONTROL_STATE == c_WB and
+    t ##5 CONTROL_STATE == c_IF                                              // ignore because rd is register 0
+endproperty
+
+property verify_jump;
+    logic [11:0] offset;
+    logic [15:0] original_PC;
+
+    t ##0 set_freeze(offset, instrIn[11:0]) and
+    t ##0 set_freeze(original_PC, instrAddr) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_JUMP  
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_IF and
+    t ##2 (instrAddr == original_PC + 16'd2 + 16'(signed'(offset)))
+endproperty
+
+
+property verify_branch;
+    logic [2:0] rs1;
+    logic [7:0] content_rs1;
+    logic [8:0] offset;
+    logic [15:0] original_PC;
+
+    t ##0 set_freeze(rs1, instrIn[11:9]) and
+    t ##0 set_freeze(offset, instrIn[8:0]) and
+    t ##0 set_freeze(original_PC, instrAddr) and
+    t ##0 set_freeze(content_rs1, REG_FILE[rs1]) and
+    t ##0 CONTROL_STATE == c_IF and
+    t ##0 instrIn[15:12] == c_BRANCH
+
+    implies
+
+    t ##1 CONTROL_STATE == c_ID and
+    t ##2 CONTROL_STATE == c_IF and
+    t ##2 ((rs1 == 0 or content_rs1 == 0) and instrAddr == original_PC + 16'd2 + 16'(signed'(offset)) or // rs1 == 0 or content_rs1 == 0
+            content_rs1 != 0 and instrAddr == original_PC + 16'd2)                                       // rs1 != 0
+endproperty
+
 
 // assert your properties
+a_verify_add_reg : assert property (@(posedge clk) disable iff(reset) verify_add_reg);
+a_verify_or_reg : assert property (@(posedge clk) disable iff(reset) verify_or_reg);
+a_verify_add_imm : assert property (@(posedge clk) disable iff(reset) verify_add_imm);
+a_verify_or_imm : assert property (@(posedge clk) disable iff(reset) verify_or_imm);
+a_verify_load : assert property (@(posedge clk) disable iff(reset) verify_load);
+a_verify_store : assert property (@(posedge clk) disable iff(reset) verify_store);
+a_verify_jump : assert property (@(posedge clk) disable iff(reset) verify_jump);
+a_verify_branch : assert property (@(posedge clk) disable iff(reset) verify_branch);
 
 `end_tda
 
 endmodule
 
 // your bind statement
+bind proc proc_property_suite u_proc_property_suite(.*);
