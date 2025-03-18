@@ -6,7 +6,7 @@
 `default_nettype none
 
 module logic_unit_comb #(
-    parameter WIDTH = 16
+    parameter WIDTH = 128
 )(
     input  logic [WIDTH-1:0] req_vec,
     input  logic             valid,

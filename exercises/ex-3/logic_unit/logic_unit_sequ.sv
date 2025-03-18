@@ -6,7 +6,7 @@
 `default_nettype none
 
 module logic_unit_sequ #(
-    parameter    WIDTH = 16
+    parameter    WIDTH = 64
 )(
     input  logic             clk,
     input  logic             rst,
