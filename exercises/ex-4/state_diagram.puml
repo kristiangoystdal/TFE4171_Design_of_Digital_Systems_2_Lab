@@ -1,0 +1,16 @@
+@startuml statediagram
+
+skinparam dpi 300
+mainframe **stm** State
+
+[*] --> Idle
+
+Idle : entry / cnt_en = 0
+Read : entry / cnt_en = 1
+
+Idle -l-> Idle : rxd == 1 / valid = 0
+Idle --> Read : rxd == 0 / valid = 0
+Read --> Idle : cnt_s == 7 / valid = 1
+Read --> Idle : reset_n == 0 (async) 
+
+@enduml

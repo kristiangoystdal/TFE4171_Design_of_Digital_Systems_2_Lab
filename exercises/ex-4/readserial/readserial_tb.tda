@@ -1,0 +1,142 @@
+module readserial_properties(clk, reset_n, rxd, data, valid, state_s, cnt_s, cnt_en);
+    input logic clk;
+    input logic reset_n;
+    input logic rxd;
+    input logic [7:0] data;
+    input logic valid;
+    input enum {IDLE, READ_DATA} state_s;
+    input shortint unsigned cnt_s;
+    input logic cnt_en;
+
+    `include "tidal.sv"
+    `begin_tda(ops)
+
+    sequence reset_sequence;
+        reset_n == 1'b0;
+    endsequence;
+    
+
+    property reset;
+        reset_sequence |=>
+        t ## 0 state_s == IDLE and
+        t ## 0 cnt_s == 0
+    endproperty;
+
+    property stay_in_idle;
+        t ##0 state_s == IDLE and
+        t ##0 rxd != 0
+
+        implies
+
+        t ##1 state_s == IDLE and
+        t ##1 valid == 0
+    endproperty
+
+    property read_byte;
+        logic data7;
+        logic data6;
+        logic data5;
+        logic data4;
+        logic data3;
+        logic data2;
+        logic data1;
+        logic data0;
+
+        //t ##0 in_idle_counter_is_0 and
+        //t ##0 in_idle_counter_not_enabled and
+        t ##0 state_s == IDLE and
+        t ##0 rxd == 0 and
+        t ##1 set_freeze(data7, rxd) and
+        t ##2 set_freeze(data6, rxd) and
+        t ##3 set_freeze(data5, rxd) and
+        t ##4 set_freeze(data4, rxd) and
+        t ##5 set_freeze(data3, rxd) and
+        t ##6 set_freeze(data2, rxd) and
+        t ##7 set_freeze(data1, rxd) and
+        t ##8 set_freeze(data0, rxd)
+
+        implies
+
+        t ##9 state_s == IDLE and
+        t ##9 valid == 1 and
+        t ##9 data == {data7, data6, data5, data4, data3, data2, data1, data0}
+    endproperty;
+
+    /*
+    sequence in_idle_counter_is_0;
+        (state_s == IDLE and cnt_s == 0) or state_s != IDLE;
+    endsequence;
+
+    sequence in_idle_counter_not_enabled;
+        (state_s == IDLE and cnt_en == 0) or state_s != IDLE;
+    endsequence
+
+    property in_idle_counter_not_enabled__step;
+        t ##0 in_idle_counter_not_enabled
+        
+        implies
+
+        t ##1 in_idle_counter_not_enabled
+    endproperty
+
+    property in_idle_counter_not_enabled__base;
+        t ##0 reset_n == 0
+
+        implies
+
+        t ##0 in_idle_counter_not_enabled
+    endproperty;
+
+    property in_idle_counter_is_0__step;
+        t ##0 in_idle_counter_is_0
+        
+        implies
+
+        t ##1 in_idle_counter_is_0
+    endproperty
+
+    property in_idle_counter_is_0__base;
+        t ##0 reset_n == 0
+
+        implies
+
+        t ##0 in_idle_counter_is_0
+    endproperty;
+
+    property in_idle_counter_is_0__step_n;
+        t ##0 in_idle_counter_is_0 and
+        t ##1 in_idle_counter_is_0
+        
+        implies
+
+        t ##2 in_idle_counter_is_0
+    endproperty
+
+    property in_idle_counter_is_0__base_n;
+        t ##0 reset_n == 0
+
+        implies
+
+        t ##0 in_idle_counter_is_0 and
+        t ##1 in_idle_counter_is_0
+    endproperty;
+    */
+
+    a_reset        : assert property (@(posedge clk) reset);
+    a_stay_in_idle : assert property (@(posedge clk) disable iff (~reset_n) stay_in_idle);
+    a_read_byte    : assert property (@(posedge clk) disable iff (~reset_n) read_byte);
+
+    /*
+    a_in_idle_counter_not_enabled__step : assert property (@(posedge clk) in_idle_counter_not_enabled__step);
+    a_in_idle_counter_not_enabled__base : assert property (@(posedge clk) in_idle_counter_not_enabled__base);
+    a_in_idle_counter_is_0__step        : assert property (@(posedge clk) in_idle_counter_is_0__step);
+    a_in_idle_counter_is_0__base        : assert property (@(posedge clk) in_idle_counter_is_0__base);
+    a_in_idle_counter_is_0__step_n      : assert property (@(posedge clk) in_idle_counter_is_0__step_n);
+    a_in_idle_counter_is_0__base_n      : assert property (@(posedge clk) in_idle_counter_is_0__base_n);
+    */
+
+    `end_tda
+
+endmodule
+
+bind readserial readserial_properties inst_readserial_properties (.*);

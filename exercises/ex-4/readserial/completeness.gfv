@@ -12,5 +12,11 @@ reset_property:
   sva/inst_readserial_properties/ops/a_reset;
 property_graph:
   sva/inst_readserial_properties/ops/a_reset -> sva/inst_readserial_properties/ops/a_read_byte;
+  sva/inst_readserial_properties/ops/a_reset -> sva/inst_readserial_properties/ops/a_stay_in_idle;
+
   sva/inst_readserial_properties/ops/a_read_byte -> sva/inst_readserial_properties/ops/a_read_byte;
+  sva/inst_readserial_properties/ops/a_read_byte -> sva/inst_readserial_properties/ops/a_stay_in_idle;
+
+  sva/inst_readserial_properties/ops/a_stay_in_idle -> sva/inst_readserial_properties/ops/a_stay_in_idle;
+  sva/inst_readserial_properties/ops/a_stay_in_idle -> sva/inst_readserial_properties/ops/a_read_byte;
 end completeness;

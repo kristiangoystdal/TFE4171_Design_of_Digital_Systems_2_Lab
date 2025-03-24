@@ -1,0 +1,30 @@
+@startuml combined
+
+skinparam dpi 300
+' mainframe **stm** Combined
+
+
+[*] --> Idle
+
+Idle -l-> Idle : rxd == 1 / valid = 0
+
+Idle -d-> 0 : rxd == 0 / valid = 0
+0 -r-> 1 
+1 -r-> 2 
+2 -r-> 3 
+3 -r-> 4 
+4 -r-> 5
+5 -r-> 6 
+6 -r-> 7 
+7 -u-> Idle : / valid = 1
+
+0 --> Idle : reset_n == 0
+1 --> Idle : reset_n == 0
+2 --> Idle : reset_n == 0
+3 --> Idle : reset_n == 0
+4 --> Idle : reset_n == 0
+5 --> Idle : reset_n == 0
+6 --> Idle : reset_n == 0
+7 --> Idle : reset_n == 0
+
+@enduml
