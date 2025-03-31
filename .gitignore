@@ -2,7 +2,7 @@
 .config/*
 .local/*
 .mozilla/*
-.vscode-server/*
+.vscode*
 .bash_history
 .bash_logout
 .bash_profile

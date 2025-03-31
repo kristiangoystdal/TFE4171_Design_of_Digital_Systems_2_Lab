@@ -32,7 +32,7 @@ program testPr_hdlc(
 
   // VerifyAbortReceive should verify correct value in the Rx status/control
   // register, and that the Rx data buffer is zero after abort.
-  task VerifyAbortReceive(logic [127:0][7:0] data, int Size);
+  task VerifyAbortReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
 
     ReadAddress(3'b010, ReadData); 
@@ -50,7 +50,7 @@ program testPr_hdlc(
 
   // VerifyDropReceive should verify correct value in the Rx status/control
   // register, and that the Rx data buffer is zero after abort.
-  task VerifyDropReceive(logic [127:0][7:0] data, int Size);
+  task VerifyDropReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
 
     ReadAddress(3'b010, ReadData); 
@@ -58,7 +58,7 @@ program testPr_hdlc(
     assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after drop");
     assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after drop");
     assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after drop");
-    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after drop");
+    assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after drop. Expecting %d", ReadData[4], Overflow);
 
     ReadAddress(3'b011, ReadData);
     
@@ -68,7 +68,7 @@ program testPr_hdlc(
 
   // VerifyNormalReceive should verify correct value in the Rx status/control
   // register, and that the Rx data buffer contains correct data.
-  task VerifyNormalReceive(logic [127:0][7:0] data, int Size);
+  task VerifyNormalReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
     wait(uin_hdlc.Rx_Ready);
 
@@ -77,7 +77,7 @@ program testPr_hdlc(
     assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after receive");
     assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after receive");
     assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after receive");
-    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after receive");
+    assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after receive. Expecting %d", ReadData[4], Overflow);
 
     for(int i = 0; i<Size; i++) begin
       ReadAddress(3'b011, ReadData);
@@ -115,9 +115,9 @@ program testPr_hdlc(
     Init();
 
     //Receive: Size, Abort, FCSerr, NonByteAligned, Overflow, Drop, SkipRead
-    // Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
-    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
+    Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
+    Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
+    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
@@ -125,6 +125,10 @@ program testPr_hdlc(
     // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
     // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
     Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
+    Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
+    Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
+    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    
     
 
     $display("*************************************************************");
@@ -289,13 +293,11 @@ program testPr_hdlc(
       @(posedge uin_hdlc.Clk);
 
     if(Abort)
-      VerifyAbortReceive(ReceiveData, Size);
+      VerifyAbortReceive(ReceiveData, Size, Overflow);
     else if (Drop)
-      VerifyDropReceive(ReceiveData, Size);
-    else if(Overflow)
-      VerifyOverflowReceive(ReceiveData, Size);
+      VerifyDropReceive(ReceiveData, Size, Overflow);
     else if(!SkipRead)
-      VerifyNormalReceive(ReceiveData, Size);
+      VerifyNormalReceive(ReceiveData, Size, Overflow);
 
     #5000ns;
   endtask

@@ -2,8 +2,8 @@
 | #   | Description                                                                                                                                     | Progress |
 |-----|-------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | 1   | Correct data in RX buffer according to RX input. The buffer should contain up to 128 bytes (includes 2 FCS bytes, not the flags).               |   Done   |
-| 2   | Attempting to read RX buffer after aborted frame, frame error or dropped frame should result in zeros.                                          |   Done for aborted - Drop frames not tested at all   |
-| 3   | Correct bits set in RX status/control register after receiving frame. Rx Overflow bit should be 0 after abort unless overflow occurred.         |   Done? - nor sure if all registers are checked   |
+| 2   | Attempting to read RX buffer after aborted frame, frame error or dropped frame should result in zeros.                                          |   Done? - No clue what causes "frame error"   |
+| 3   | Correct bits set in RX status/control register after receiving frame. Rx Overflow bit should be 0 after abort unless overflow occurred.         |   Done   |
 | 4   | Correct TX output according to written TX buffer.                                                                                               |   Not done   |
 | 5   | Start and end of frame pattern generation (Start and end flag: `01111110`).                                                                     |   Not done   |
 | 6   | Zero insertion and removal for transparent transmission.                                                                                        |   Not done   |
@@ -111,3 +111,7 @@ RXSC was an undefined variable in the code. We opted to use a simple find-and-re
 
 ## Other Errors
 
+
+# Edge cases
+- Checking RX overflow bit if a message is dropped (Rx_SC Rx_Drop) after overflow has occured 
+- Abort signal does wacky stuff when overflow is high and message is subsequently dropped
