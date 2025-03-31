@@ -57,7 +57,7 @@ program testPr_hdlc(
     
     assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after drop");
     assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after drop");
-    assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after drop");
+    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after drop");
     assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after drop");
 
     ReadAddress(3'b011, ReadData);
@@ -274,8 +274,10 @@ program testPr_hdlc(
       MakeRxStimulus(OverflowData, 3);
     end
 
-    if(Abort) begin
+    if (Abort) begin
       InsertFlagOrAbort(0);
+    end else if(Drop) begin
+      WriteAddress(3'b010, 8'h02);
     end else begin
       InsertFlagOrAbort(1);
     end
