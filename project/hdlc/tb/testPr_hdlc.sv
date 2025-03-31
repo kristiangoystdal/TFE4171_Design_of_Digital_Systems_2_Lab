@@ -57,12 +57,12 @@ program testPr_hdlc(
 
     ReadAddress(3'b010, ReadData); 
     
-    assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after abort");
-    assert (ReadData[1] == 1'b1) else $error("Rx_Drop low after abort");
-    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after abort");
-    assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after abort");
-    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after abort");
-    // assert (ReadData[5] == 1'b0) else $error ("Rx_FCSen high after abort");
+    assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after drop");
+    assert (ReadData[1] == 1'b1) else $error("Rx_Drop low after drop");
+    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after drop");
+    assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after drop");
+    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after drop");
+    // assert (ReadData[5] == 1'b0) else $error ("Rx_FCSen high after drop");
 
     ReadAddress(3'b011, ReadData);
     
@@ -282,7 +282,7 @@ program testPr_hdlc(
       MakeRxStimulus(OverflowData, 3);
     end
 
-    if(Abort or Drop) begin
+    if(Abort) begin
       InsertFlagOrAbort(0);
     end else begin
       InsertFlagOrAbort(1);
@@ -296,6 +296,8 @@ program testPr_hdlc(
 
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size);
+    else if (Drop)
+      VerifyDropReceive(ReceiveData, Size);
     else if(Overflow)
       VerifyOverflowReceive(ReceiveData, Size);
     else if(!SkipRead)
