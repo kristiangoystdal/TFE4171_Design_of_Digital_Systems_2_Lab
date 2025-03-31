@@ -1,5 +1,5 @@
 # vsim -assertdebug -c -voptargs="+acc" test_hdlc bind_hdlc -do "log -r *; run -all; exit" 
-# Start time: 15:07:26 on Feb 17,2025
+# Start time: 15:51:01 on Mar 31,2025
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: ../rtl/TxFCS.sv(13): (vopt-13314) Defaulting port 'DataBuff' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Note: (vopt-143) Recognized 1 FSM in module "TxFCS(fast)".
@@ -48,62 +48,24 @@
 #                    0 - Starting Test Program
 # *************************************************************
 # *************************************************************
-#                 1000 - Starting task Receive - Normal
-# *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#                78250 - Starting task Receive - Abort
+#                 1000 - Starting task Receive - Drop
 # *************************************************************
 # PASS: Flag detect
 # PASS: Abort signal
+# ** Error: Rx_Drop low after drop
+#    Time: 43750 ns  Scope: test_hdlc.u_testPr.VerifyDropReceive File: ./testPr_hdlc.sv Line: 61
 # *************************************************************
-#               268250 - Starting task Receive - Overflow
+#                49750 - Finishing Test Program
 # *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#               822250 - Starting task Receive - Normal
-# *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#              1076750 - Starting task Receive - Normal
-# *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#              1740250 - Starting task Receive - Abort
-# *************************************************************
-# PASS: Flag detect
-# PASS: Abort signal
-# *************************************************************
-#              2266750 - Starting task Receive - Overflow
-# *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#              2815750 - Starting task Receive - Normal
-# *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#              2971250 - Starting task Receive - Normal
-# *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#              3236250 - Finishing Test Program
-# *************************************************************
-# ** Note: $stop    : ./testPr_hdlc.sv(113)
-#    Time: 3236250 ns  Iteration: 1  Instance: /test_hdlc/u_testPr
-# Break in Module testPr_hdlc at ./testPr_hdlc.sv line 113
-# Stopped at ./testPr_hdlc.sv line 113
+# ** Note: $stop    : ./testPr_hdlc.sv(141)
+#    Time: 49750 ns  Iteration: 1  Instance: /test_hdlc/u_testPr
+# Break in Module testPr_hdlc at ./testPr_hdlc.sv line 141
+# Stopped at ./testPr_hdlc.sv line 141
 #  exit
 # *********************************
 # *                               *
 # * 	Assertion Errors: 0	  *
 # *                               *
 # *********************************
-# End time: 15:07:33 on Feb 17,2025, Elapsed time: 0:00:07
-# Errors: 0, Warnings: 5
+# End time: 15:51:07 on Mar 31,2025, Elapsed time: 0:00:06
+# Errors: 1, Warnings: 5
