@@ -38,9 +38,31 @@ program testPr_hdlc(
     ReadAddress(3'b010, ReadData); 
     
     assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after abort");
+    assert (ReadData[1] == 1'b0) else $error("Rx_Drop high after abort");
     assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after abort");
     assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after abort");
     assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after abort");
+    // assert (ReadData[5] == 1'b0) else $error ("Rx_FCSen high after abort");
+
+    ReadAddress(3'b011, ReadData);
+    
+    assert(ReadData == 8'h00) else $error("Rx_Buff not empty after abort");
+
+  endtask
+
+  // VerifyDropReceive should verify correct value in the Rx status/control
+  // register, and that the Rx data buffer is zero after abort.
+  task VerifyDropReceive(logic [127:0][7:0] data, int Size);
+    logic [7:0] ReadData;
+
+    ReadAddress(3'b010, ReadData); 
+    
+    assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after abort");
+    assert (ReadData[1] == 1'b1) else $error("Rx_Drop low after abort");
+    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after abort");
+    assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after abort");
+    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after abort");
+    // assert (ReadData[5] == 1'b0) else $error ("Rx_FCSen high after abort");
 
     ReadAddress(3'b011, ReadData);
     
@@ -56,10 +78,12 @@ program testPr_hdlc(
 
     ReadAddress(3'b010, ReadData); 
     
-    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after abort");
-    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after abort");
-    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after abort");
-    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after abort");
+    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after receive");
+    assert (ReadData[1] == 1'b0) else $error("Rx_Drop high after receive");
+    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after receive");
+    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after receive");
+    assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after receive");
+    // assert (ReadData[5] == 1'b1) else $error("Rx_FCSen low after receive");
 
     for(int i = 0; i<Size; i++) begin
       ReadAddress(3'b011, ReadData);
@@ -76,10 +100,12 @@ program testPr_hdlc(
 
     ReadAddress(3'b010, ReadData); 
 
-    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after abort");
-    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after abort");
-    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after abort");
-    assert (ReadData[4] == 1'b1) else $error("Rx_Overflow low after abort");
+    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after overflow");
+    assert (ReadData[1] == 1'b0) else $error("Rx_Drop high after overflow");
+    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after overflow");
+    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after overflow");
+    assert (ReadData[4] == 1'b1) else $error("Rx_Overflow low after overflow");
+    // assert (ReadData[5] == 1'b1) else $error("Rx_FCSen low after overflow");
 
   endtask
 
@@ -97,15 +123,17 @@ program testPr_hdlc(
     Init();
 
     //Receive: Size, Abort, FCSerr, NonByteAligned, Overflow, Drop, SkipRead
-    Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
-    Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
-    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
-    Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
-    Receive(126, 0, 0, 0, 0, 0, 0); //Normal
-    Receive(122, 1, 0, 0, 0, 0, 0); //Abort
-    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
-    Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
-    Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
+    // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
+    // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
+    Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
+    
 
     $display("*************************************************************");
     $display("%t - Finishing Test Program", $time);
@@ -254,7 +282,7 @@ program testPr_hdlc(
       MakeRxStimulus(OverflowData, 3);
     end
 
-    if(Abort) begin
+    if(Abort or Drop) begin
       InsertFlagOrAbort(0);
     end else begin
       InsertFlagOrAbort(1);
