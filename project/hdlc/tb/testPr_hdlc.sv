@@ -256,7 +256,7 @@ program testPr_hdlc(
     ReceiveData[Size+1] = '0;
 
     //Calculate FCS bits;
-    GenerateFCSBytes(ReceiveData, Size, FCSBytes);
+    GenerateFCSBytes(ReceiveData, Size, FCSBytes, FCSerr);
     ReceiveData[Size]   = FCSBytes[7:0];
     ReceiveData[Size+1] = FCSBytes[15:8];
 
@@ -302,7 +302,7 @@ program testPr_hdlc(
     #5000ns;
   endtask
 
-  task GenerateFCSBytes(logic [127:0][7:0] data, int size, output logic[15:0] FCSBytes);
+  task GenerateFCSBytes(logic [127:0][7:0] data, int size, output logic[15:0] FCSBytes, int FCSerr);
     logic [23:0] CheckReg;
     CheckReg[15:8]  = data[1];
     CheckReg[7:0]   = data[0];
@@ -321,6 +321,86 @@ program testPr_hdlc(
       end
     end
     FCSBytes = CheckReg;
+  endtask
+
+  // ------------------------------------------------------
+  // Transmit part 
+  // ------------------------------------------------------
+
+  task Transmit(int Size, int Abort, int FCSerr, int NonByteAligned, int Overflow, int Drop, int SkipRead);
+    logic [127:0][7:0] TransmitData;
+    logic       [15:0] FCSBytes;
+    logic   [2:0][7:0] OverflowData;
+    string msg;
+    if(Abort)
+      msg = "- Abort";
+    else if(FCSerr)
+      msg = "- FCS error";
+    else if(NonByteAligned)
+      msg = "- Non-byte aligned";
+    else if(Overflow)
+      msg = "- Overflow";
+    else if(Drop)
+      msg = "- Drop";
+    else if(SkipRead)
+      msg = "- Skip read";
+    else
+      msg = "- Normal";
+    $display("*************************************************************");
+    $display("%t - Starting task Transmit %s", $time, msg);
+    $display("*************************************************************");
+
+    for (int i = 0; i < Size; i++) begin
+      TransmitData[i] = $urandom;
+    end
+    TransmitData[Size]   = '0;
+    TransmitData[Size+1] = '0;
+
+    //Calculate FCS bits;
+    GenerateFCSBytes(TransmitData, Size, FCSBytes);
+    TransmitData[Size]   = FCSBytes[7:0];
+    TransmitData[Size+1] = FCSBytes[15:8];
+
+    //Enable FCS
+    if(!Overflow && !NonByteAligned)
+      WriteAddress(3'b010, 8'h20);
+    else
+      WriteAddress(3'b010, 8'h00);
+
+    //Generate stimulus
+    InsertFlagOrAbort(1);
+    
+    MakeRxStimulus(TransmitData, Size + 2);
+    
+    if(Overflow) begin
+      OverflowData[0] = 8'h44;
+      OverflowData[1] = 8'hBB;
+      OverflowData[2] = 8'hCC;
+      MakeRxStimulus(OverflowData, 3);
+    end
+
+    if (Abort) begin
+      InsertFlagOrAbort(0);
+    end else if(Drop) begin
+      WriteAddress(3'b010, 8'h02);
+    end else begin
+      InsertFlagOrAbort(1);
+    end
+
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+
+    repeat(8)
+      @(posedge uin_hdlc.Clk);
+
+    if(Abort)
+      VerifyAbortTransmit(TransmitData, Size, Overflow);
+    else if (Drop)
+      VerifyDropTransmit(TransmitData, Size, Overflow);
+    else if(!SkipRead)
+      VerifyNormalTransmit(TransmitData, Size, Overflow);
+
+    #5000ns;
   endtask
 
 endprogram
