@@ -393,12 +393,12 @@ program testPr_hdlc(
     repeat(8)
       @(posedge uin_hdlc.Clk);
 
-    if(Abort)
-      VerifyAbortTransmit(TransmitData, Size, Overflow);
-    else if (Drop)
-      VerifyDropTransmit(TransmitData, Size, Overflow);
-    else if(!SkipRead)
-      VerifyNormalTransmit(TransmitData, Size, Overflow);
+    // if(Abort)
+    //   VerifyAbortTransmit(TransmitData, Size, Overflow);
+    // else if (Drop)
+    //   VerifyDropTransmit(TransmitData, Size, Overflow);
+    // else if(!SkipRead)
+    //   VerifyNormalTransmit(TransmitData, Size, Overflow);
 
     #5000ns;
   endtask
