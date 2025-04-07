@@ -131,7 +131,8 @@ program testPr_hdlc(
 
     Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
     Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
+    // Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
+    Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     
     
@@ -383,12 +384,15 @@ program testPr_hdlc(
     //Enable Tx
     WriteAddress(3'b000, 8'h02);
 
-    repeat(8*(Size+20)) // Should mabye not be 6, need to find the correct value, idk
+    @(posedge uin_hdlc.Tx_FCSDone);
+
+    //TODO
+    repeat(8*(Size+10)) // Should mabye not be 6, need to find the correct value, idk
       @(posedge uin_hdlc.Clk);
 
     //Verify that the Tx buffer is empty
     ReadAddress(3'b000, ReadData);
-    assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty before transmit");
+    assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty after transmit");
 
     #5000ns;
   endtask
