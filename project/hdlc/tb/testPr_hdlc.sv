@@ -363,7 +363,7 @@ program testPr_hdlc(
     TransmitData[Size+1] = '0; 
    
     //Verify that the Tx buffer is empty
-    Logic [7:0] ReadData;
+    logic [7:0] ReadData;
     ReadAddress(3'b000, ReadData);
     assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty before transmit");
 
@@ -388,7 +388,6 @@ program testPr_hdlc(
       @(posedge uin_hdlc.Clk);
 
     //Verify that the Tx buffer is empty
-    Logic [7:0] ReadData;
     ReadAddress(3'b000, ReadData);
     assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty before transmit");
 
