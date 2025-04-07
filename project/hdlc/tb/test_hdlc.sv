@@ -15,7 +15,10 @@ module test_hdlc ();
   //Hdlc interface
   in_hdlc uin_hdlc();
 
-  //Internal assignments
+  //Internal TX assignments
+  assign uin_hdlc.Tx_DataArray      = u_dut.Tx_DataArray;
+
+  //Internal RX assignments
   assign uin_hdlc.Rx_ValidFrame      = u_dut.Rx_ValidFrame;
   assign uin_hdlc.Rx_Data            = u_dut.Rx_Data;
   assign uin_hdlc.Rx_AbortSignal     = u_dut.Rx_AbortSignal;
