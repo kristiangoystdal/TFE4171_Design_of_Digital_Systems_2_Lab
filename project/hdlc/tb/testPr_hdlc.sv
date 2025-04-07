@@ -383,7 +383,7 @@ program testPr_hdlc(
     //Enable Tx
     WriteAddress(3'b000, 8'h02);
 
-    repeat(8*(Size+6)) // Should mabye not be 6, need to find the correct value, idk
+    repeat(8*(Size+20)) // Should mabye not be 6, need to find the correct value, idk
       @(posedge uin_hdlc.Clk);
 
     //Verify that the Tx buffer is empty
