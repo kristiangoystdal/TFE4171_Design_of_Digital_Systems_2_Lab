@@ -383,7 +383,7 @@ program testPr_hdlc(
     //Enable Tx
     WriteAddress(3'b000, 8'h01);
 
-    repeat(8)
+    repeat(8*(Size+10)) // Should not be 10, need to find the correct value
       @(posedge uin_hdlc.Clk);
 
     //Verify that the Tx buffer is empty
