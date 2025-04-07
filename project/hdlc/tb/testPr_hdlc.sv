@@ -377,7 +377,7 @@ program testPr_hdlc(
 
     //Verify buffer content
     for (int i = 0; i < ((126 < Size) ? 126 : Size ); i++ ) begin
-      assert(Tx_DataArray[i] == TransmitData[i]) else $error("Tx_DataArray[%0d] = %0h. Expecting %0h", i, Tx_DataArray[i], TransmitData[i]);
+      assert(uin_hdlc.Tx_DataArray[i] == TransmitData[i]) else $error("Tx_DataArray[%0d] = %0h. Expecting %0h", i, uin_hdlc.Tx_DataArray[i], TransmitData[i]);
     end
 
     //Enable Tx
