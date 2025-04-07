@@ -256,7 +256,7 @@ program testPr_hdlc(
     ReceiveData[Size+1] = '0;
 
     //Calculate FCS bits;
-    GenerateFCSBytes(ReceiveData, Size, FCSBytes, FCSerr);
+    GenerateFCSBytes(ReceiveData, Size, FCSBytes);
     ReceiveData[Size]   = FCSBytes[7:0];
     ReceiveData[Size+1] = FCSBytes[15:8];
 
@@ -302,7 +302,7 @@ program testPr_hdlc(
     #5000ns;
   endtask
 
-  task GenerateFCSBytes(logic [127:0][7:0] data, int size, output logic[15:0] FCSBytes, int FCSerr);
+  task GenerateFCSBytes(logic [127:0][7:0] data, int size, output logic[15:0] FCSBytes);
     logic [23:0] CheckReg;
     CheckReg[15:8]  = data[1];
     CheckReg[7:0]   = data[0];
