@@ -24,6 +24,9 @@ interface in_hdlc ();
   logic TxEN;
   logic Tx_Done;
 
+  // Tx
+  logic [127:0][7:0] Tx_DataArray;
+
   // RX
   logic Rx;
   logic RxEN;
