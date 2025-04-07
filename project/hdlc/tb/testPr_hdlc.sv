@@ -372,7 +372,7 @@ program testPr_hdlc(
     end
 
     //Verify Overflow
-    ReadAdress(3'b000, ReadData);
+    ReadAddress(3'b000, ReadData);
     assert(ReadData[4] == Overflow) else $error("Tx_Overflow %0d. Expecting %0d", ReadData[4], Overflow);
 
     //Verify buffer content
