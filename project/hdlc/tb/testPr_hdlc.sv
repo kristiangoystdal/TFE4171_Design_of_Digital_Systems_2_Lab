@@ -336,6 +336,8 @@ program testPr_hdlc(
     logic [127:0][7:0] TransmitData;
     logic       [15:0] FCSBytes;
     logic   [2:0][7:0] OverflowData;
+    logic [7:0] ReadData;
+
     string msg;
     if(Abort)
       msg = "- Abort";
@@ -359,11 +361,8 @@ program testPr_hdlc(
     for (int i = 0; i < Size; i++) begin
       TransmitData[i] = $urandom;
     end
-    TransmitData[Size]   = '0;
-    TransmitData[Size+1] = '0; 
    
     //Verify that the Tx buffer is empty
-    logic [7:0] ReadData;
     ReadAddress(3'b000, ReadData);
     assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty before transmit");
 
