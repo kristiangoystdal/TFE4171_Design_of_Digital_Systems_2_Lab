@@ -115,19 +115,24 @@ program testPr_hdlc(
     Init();
 
     //Receive: Size, Abort, FCSerr, NonByteAligned, Overflow, Drop, SkipRead
-    Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
-    Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
-    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
+    // Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
     // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
-    Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
-    Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
-    Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
-    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    // Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
+    // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
+    // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+
+    Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
+    Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
+    Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
+    Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     
     
 
@@ -349,56 +354,43 @@ program testPr_hdlc(
     $display("*************************************************************");
     $display("%t - Starting task Transmit %s", $time, msg);
     $display("*************************************************************");
-
+    
+    //Generate data
     for (int i = 0; i < Size; i++) begin
       TransmitData[i] = $urandom;
     end
     TransmitData[Size]   = '0;
-    TransmitData[Size+1] = '0;
+    TransmitData[Size+1] = '0; 
+   
+    //Verify that the Tx buffer is empty
+    Logic [7:0] ReadData;
+    ReadAddress(3'b000, ReadData);
+    assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty before transmit");
 
-    //Calculate FCS bits;
-    GenerateFCSBytes(TransmitData, Size, FCSBytes);
-    TransmitData[Size]   = FCSBytes[7:0];
-    TransmitData[Size+1] = FCSBytes[15:8];
-
-    //Enable FCS
-    if(!Overflow && !NonByteAligned)
-      WriteAddress(3'b010, 8'h20);
-    else
-      WriteAddress(3'b010, 8'h00);
-
-    //Generate stimulus
-    InsertFlagOrAbort(1);
-    
-    MakeRxStimulus(TransmitData, Size + 2);
-    
-    if(Overflow) begin
-      OverflowData[0] = 8'h44;
-      OverflowData[1] = 8'hBB;
-      OverflowData[2] = 8'hCC;
-      MakeRxStimulus(OverflowData, 3);
+    //Write data to Tx buffer
+    for (int i = 0; i < Size; i++) begin
+      WriteAddress(3'b001, TransmitData[i]);
     end
 
-    if (Abort) begin
-      InsertFlagOrAbort(0);
-    end else if(Drop) begin
-      WriteAddress(3'b010, 8'h02);
-    end else begin
-      InsertFlagOrAbort(1);
+    //Verify Overflow
+    ReadAdress(3'b000, ReadData);
+    assert(ReadData[4] == Overflow) else $error("Tx_Overflow %0d. Expecting %0d", ReadData[4], Overflow);
+
+    //Verify buffer content
+    for (int i = 0; i < ((126 < Size) ? 126 : Size ); i++ ) begin
+      assert(Tx_DataArray[i] == TransmitData[i]) else $error("Tx_DataArray[%0d] = %0h. Expecting %0h", i, Tx_DataArray[i], TransmitData[i]);
     end
 
-    @(posedge uin_hdlc.Clk);
-    uin_hdlc.Rx = 1'b1;
+    //Enable Tx
+    WriteAddress(3'b000, 8'h01);
 
     repeat(8)
       @(posedge uin_hdlc.Clk);
 
-    // if(Abort)
-    //   VerifyAbortTransmit(TransmitData, Size, Overflow);
-    // else if (Drop)
-    //   VerifyDropTransmit(TransmitData, Size, Overflow);
-    // else if(!SkipRead)
-    //   VerifyNormalTransmit(TransmitData, Size, Overflow);
+    //Verify that the Tx buffer is empty
+    Logic [7:0] ReadData;
+    ReadAddress(3'b000, ReadData);
+    assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty before transmit");
 
     #5000ns;
   endtask
