@@ -27,6 +27,9 @@ interface in_hdlc ();
   // Tx
   logic [127:0][7:0] Tx_DataArray;
   logic              Tx_FCSDone;
+  logic              Tx_ValidFrame;
+  logic              Tx_AbortedTrans;
+  logic              Tx_Full;
 
   // RX
   logic Rx;

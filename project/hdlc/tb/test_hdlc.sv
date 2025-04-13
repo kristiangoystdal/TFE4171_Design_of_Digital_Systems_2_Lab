@@ -18,6 +18,9 @@ module test_hdlc ();
   //Internal TX assignments
   assign uin_hdlc.Tx_DataArray      = u_dut.Tx_DataArray;
   assign uin_hdlc.Tx_FCSDone        = u_dut.Tx_FCSDone;
+  assign uin_hdlc.Tx_ValidFrame     = u_dut.Tx_ValidFrame;
+  assign uin_hdlc.Tx_AbortedTrans   = u_dut.Tx_AbortedTrans;
+  assign uin_hdlc.Tx_Full           = u_dut.Tx_Full;
 
   //Internal RX assignments
   assign uin_hdlc.Rx_ValidFrame      = u_dut.Rx_ValidFrame;

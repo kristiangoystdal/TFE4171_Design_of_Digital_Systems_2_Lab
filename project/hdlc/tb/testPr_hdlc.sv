@@ -23,6 +23,7 @@ program testPr_hdlc(
 );
   
   int TbErrorCnt;
+  logic TxActive;
 
   /****************************************************************************
    *                                                                          *
@@ -131,9 +132,10 @@ program testPr_hdlc(
 
     Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
     Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
-    // Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
+    Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
     Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
+    Transmit( 40, 1, 0, 0, 0, 0, 0); //Abort
     
     
 
@@ -332,12 +334,47 @@ program testPr_hdlc(
   // ------------------------------------------------------
   // Transmit part 
   // ------------------------------------------------------
+  task CheckFlagOrAbort(int abort);
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b0) else $error("Error in flag sequence bit 0");
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 1");
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 2");
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 3");
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 4");
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 5");
+    @(posedge uin_hdlc.Clk);
+    assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 6");
+    @(posedge uin_hdlc.Clk);
+    if(abort)
+      assert(uin_hdlc.Tx == 1'b1) else $error("Error in flag sequence bit 7 (abort bit)");
+    else
+      assert(uin_hdlc.Tx == 1'b0) else $error("Error in flag sequence bit 7");
+  endtask
+
+  task CheckFCSBytes(logic [127:0][7:0] TransmitData, int Size, logic [5:0] PrevBits);
+    logic [15:0] FCSBytes;
+    GenerateFCSBytes(TransmitData, Size, FCSBytes);
+    for (int i = 0; i < 16; i++) begin
+      @(posedge uin_hdlc.Clk);
+      assert(uin_hdlc.Tx == FCSBytes[i]) else $error("FCS bit %0d has value %0d. Expecting %0d", i, uin_hdlc.Tx, FCSBytes[i]);
+      PrevBits = {PrevBits[4:0], uin_hdlc.Tx};
+        if (PrevBits == 5'b11111) begin
+          @(posedge uin_hdlc.Clk);
+          assert(uin_hdlc.Tx == 'b0) else $error("Missing zero insertion");
+        end 
+    end
+  endtask
 
   task Transmit(int Size, int Abort, int FCSerr, int NonByteAligned, int Overflow, int Drop, int SkipRead);
     logic [127:0][7:0] TransmitData;
-    logic       [15:0] FCSBytes;
     logic   [2:0][7:0] OverflowData;
     logic [7:0] ReadData;
+    logic [5:0] PrevBits; //TODO: WHY do I need this at 6 bits instead of 5 for stuff to work?
 
     string msg;
     if(Abort)
@@ -376,6 +413,13 @@ program testPr_hdlc(
     ReadAddress(3'b000, ReadData);
     assert(ReadData[4] == Overflow) else $error("Tx_Overflow %0d. Expecting %0d", ReadData[4], Overflow);
 
+    //Verify Tx_Full
+    if (Size >= 126) begin
+      assert(uin_hdlc.Tx_Full == 'b1) else $error("Tx_Full low when buffer should be full");
+    end else begin
+      assert(uin_hdlc.Tx_Full == 'b0) else $error("Tx_Full high when buffer is not expected to be full");
+    end
+
     //Verify buffer content
     for (int i = 0; i < ((126 < Size) ? 126 : Size ); i++ ) begin
       assert(uin_hdlc.Tx_DataArray[i] == TransmitData[i]) else $error("Tx_DataArray[%0d] = %0h. Expecting %0h", i, uin_hdlc.Tx_DataArray[i], TransmitData[i]);
@@ -384,17 +428,53 @@ program testPr_hdlc(
     //Enable Tx
     WriteAddress(3'b000, 8'h02);
 
-    @(posedge uin_hdlc.Tx_FCSDone);
+    //Wait until TxChannel actually begins transmitting, 1 cycle after ValidFrame is asserted
+    @(posedge uin_hdlc.Tx_ValidFrame);
+    @(posedge uin_hdlc.Clk);
+    TxActive = 'b1;
 
-    //TODO
-    repeat(8*(Size+10)) // Should mabye not be 6, need to find the correct value, idk
-      @(posedge uin_hdlc.Clk);
+    //Check that the bitstream is correct
+    CheckFlagOrAbort(0);
+
+    PrevBits = 5'b00000;
+    for (int i = 0; i < ((126 < Size) ? 126 : Size); i++) begin
+      for (int j = 0; j < 8; j++) begin
+        @(posedge uin_hdlc.Clk);
+        assert(uin_hdlc.Tx == TransmitData[i][j]) else $error("Tx bitstream mimatch with data at byte %0d, bit %0d", i, j);
+        PrevBits = {PrevBits[4:0], uin_hdlc.Tx}; 
+        if (PrevBits == 5'b11111) begin //TODO: WHY do I need to not specifify the correct 5 bits here for it to work
+          @(posedge uin_hdlc.Clk);
+          assert(uin_hdlc.Tx == 'b0) else $error("Missing zero insertion");
+        end   
+      end
+    end
+
+    //TODO: Getting lots of errors in here
+    CheckFCSBytes(TransmitData, Size, PrevBits);
+
+    /*if (Abort) begin
+      WriteAddress(3'b000, 8'h04);
+      @(posedge uin_hdlc.Tx_AbortedTrans);
+      CheckFlagOrAbort(1);
+    end else begin*/
+    CheckFlagOrAbort(Abort); // Not quite
+    //end
 
     //Verify that the Tx buffer is empty
     ReadAddress(3'b000, ReadData);
     assert(ReadData[0] == 1'b1) else $error("Tx buffer not empty after transmit");
+    assert(uin_hdlc.Tx_Done == 1'b1) else $error("Tx_Done not asserted after finished transmission");
 
-    #5000ns;
+    @(posedge uin_hdlc.Clk);
+    TxActive = 'b0;
   endtask
+
+  property TxIdle;
+    disable iff (TxActive)
+    @(posedge uin_hdlc.Clk)
+    uin_hdlc.Tx == 'b1;
+  endproperty
+
+  a_TxIdle: assert property(TxIdle);
 
 endprogram
