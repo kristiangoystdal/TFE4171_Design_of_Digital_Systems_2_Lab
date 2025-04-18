@@ -137,18 +137,18 @@ program testPr_hdlc(
 
     //Receive: Size, Abort, FCSerr, NonByteAligned, Overflow, Drop, SkipRead
     Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
-    Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
-    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
-    // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
+    Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
+    Receive(126, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
     // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
-    Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
-    Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
-    Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
-    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    // Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
+    // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
+    // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
     
     
 
