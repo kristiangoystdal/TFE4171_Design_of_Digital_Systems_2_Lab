@@ -86,6 +86,27 @@ program testPr_hdlc(
   
   endtask
 
+  // VerifyEndFrame should verify correct value in the Rx status/control
+  // register, and that the Rx data buffer contains correct data.
+  task VerifyEndFrame(logic [127:0][7:0] data, int Size, int Overflow);
+    logic [7:0] ReadData;
+    wait(uin_hdlc.Rx_Ready);
+
+    ReadAddress(3'b010, ReadData); 
+    
+    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after end frame");
+    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after end frame");
+    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after end frame");
+    assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after end frame. Expecting %d", ReadData[4], Overflow);
+
+    for(int i = 0; i<Size; i++) begin
+      if(i == Size-1) begin
+        ReadAddress(3'b011, ReadData);
+        assert(ReadData == data[i]) else $error("Rx_Buff not equal to matrix row %d", i);
+      end
+    end
+  endtask
+
   // VerifyNormalReceive should verify correct value in the Rx status/control
   // register, and that the Rx data buffer contains correct data.
   task VerifyOverflowReceive(logic [127:0][7:0] data, int Size);
@@ -298,6 +319,7 @@ program testPr_hdlc(
       VerifyDropReceive(ReceiveData, Size, Overflow);
     else if(!SkipRead)
       VerifyNormalReceive(ReceiveData, Size, Overflow);
+      VerifyEndFrame(ReceiveData, Size, Overflow);
 
     #5000ns;
   endtask
