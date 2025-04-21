@@ -107,7 +107,22 @@ program testPr_hdlc(
     end
   endtask
 
-  // VerifyNormalReceive should verify correct value in the Rx status/control
+  // VerifyFrameError should verify correct value in the Rx status/control
+  // register
+  task VerifyFrameErrorReceive(logic [127:0][7:0] data, int Size, int Overflow);
+    logic [7:0] ReadData;
+    wait(uin_hdlc.Rx_Ready);
+
+    ReadAddress(3'b010, ReadData); 
+
+    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after frame error");
+    assert (ReadData[2] == 1'b1) else $error("Rx_FrameError low after frame error");
+    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after frame error");
+    assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after frame error. Expecting %d", ReadData[4], Overflow);
+
+  endtask
+
+  // VerifyOverflowReceive should verify correct value in the Rx status/control
   // register, and that the Rx data buffer contains correct data.
   task VerifyOverflowReceive(logic [127:0][7:0] data, int Size);
     logic [7:0] ReadData;
@@ -140,7 +155,7 @@ program testPr_hdlc(
     // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
-    Receive(126, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
@@ -149,6 +164,9 @@ program testPr_hdlc(
     // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
     // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
+    Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
+
     
     
 
@@ -278,12 +296,17 @@ program testPr_hdlc(
 
     //Calculate FCS bits;
     GenerateFCSBytes(ReceiveData, Size, FCSBytes);
+    if (FCSerr) begin
+      FCSBytes ^= 16'h0001;
+    end
     ReceiveData[Size]   = FCSBytes[7:0];
     ReceiveData[Size+1] = FCSBytes[15:8];
 
     //Enable FCS
     if(!Overflow && !NonByteAligned)
       WriteAddress(3'b010, 8'h20);
+    // else if (FCSerr)
+    //   WriteAddress(3'b010, 8'h04);    
     else
       WriteAddress(3'b010, 8'h00);
 
@@ -317,6 +340,8 @@ program testPr_hdlc(
       VerifyAbortReceive(ReceiveData, Size, Overflow);
     else if (Drop)
       VerifyDropReceive(ReceiveData, Size, Overflow);
+    else if (FCSerr || NonByteAligned)
+      VerifyFrameErrorReceive(ReceiveData, Size, Overflow);
     else if(!SkipRead)
       VerifyNormalReceive(ReceiveData, Size, Overflow);
       VerifyEndFrame(ReceiveData, Size, Overflow);
