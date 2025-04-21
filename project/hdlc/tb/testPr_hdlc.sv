@@ -143,7 +143,7 @@ program testPr_hdlc(
     wait(uin_hdlc.Rx_Ready);
 
     int InternalSize = uin.hdlc.Rx_FrameSize;
-    assert (InternalSize == Size) else $error("Rx_FrameSize not equal to %d", Size);
+    assert (InternalSize == Size) else $error("Rx_FrameSize = %d and not equal to expected Size %d", InternalSize, Size);
     
   endtask
 
