@@ -12,11 +12,11 @@
 | 9   | When aborting frame during transmission, `Tx AbortedTrans` should be asserted.                                                                  |   Not done   |
 | 10  | Abort pattern detected during valid frame should generate `Rx AbortSignal`.                                                                     |   Done   |
 | 11  | CRC generation and checking.                                                                                                                    |   Not done   |
-| 12  | When a whole RX frame has been received, check if end of frame is generated.                                                                    |   Not done   |
+| 12  | When a whole RX frame has been received, check if end of frame is generated.                                                                    |   Not done / Maybe?  |
 | 13  | When receiving more than 128 bytes, `Rx Overflow` should be asserted.                                                                           |   Done   |
-| 14  | `Rx FrameSize` should equal the number of bytes received in a frame (max 126 bytes = 128 - 2 FCS bytes).                                        |   Not done - easy   |
+| 14  | `Rx FrameSize` should equal the number of bytes received in a frame (max 126 bytes = 128 - 2 FCS bytes).                                        |   Not done - easy / Maybe?  |
 | 15  | `Rx Ready` should indicate byte(s) in RX buffer is ready to be read.                                                                            |   Done?   |
-| 16  | Non-byte aligned data or FCS error should result in frame error.                                                                                |   Not done       |
+| 16  | Non-byte aligned data or FCS error should result in frame error.                                                                                |   Not done / Maybe?      |
 | 17  | `Tx Done` should be asserted when the entire TX buffer has been read for transmission.                                                          |   Not done   |
 | 18  | `Tx Full` should be asserted after writing 126 or more bytes to the TX buffer (overflow).                                                       |   Not done   |
 
