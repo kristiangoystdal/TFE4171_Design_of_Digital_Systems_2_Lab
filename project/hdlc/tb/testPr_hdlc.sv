@@ -314,6 +314,14 @@ program testPr_hdlc(
     InsertFlagOrAbort(1);
     
     MakeRxStimulus(ReceiveData, Size + 2);
+    if (NonByteAligned) begin
+      // Inject 3 random bits
+      for (int i = 0; i < 3; i++) begin
+        @(posedge uin_hdlc.Clk);
+        uin_hdlc.Rx = $urandom(0,1);
+      end
+    end
+
     
     if(Overflow) begin
       OverflowData[0] = 8'h44;
