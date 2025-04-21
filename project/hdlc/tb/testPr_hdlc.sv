@@ -137,6 +137,16 @@ program testPr_hdlc(
 
   endtask
 
+  // VerifyRX_FrameSize should verify correct frame size 
+  task VerifyRX_FrameSize(int Size);
+    logic [7:0] ReadData;
+    wait(uin_hdlc.Rx_Ready);
+
+    int InternalSize = uin.hdlc.Rx_FrameSize;
+    assert (InternalSize == Size) else $error("Rx_FrameSize not equal to %d", Size);
+    
+  endtask
+
   /****************************************************************************
    *                                                                          *
    *                             Simulation code                              *
@@ -344,6 +354,7 @@ program testPr_hdlc(
     repeat(8)
       @(posedge uin_hdlc.Clk);
 
+    VerifyRX_FrameSize(Size);
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size, Overflow);
     else if (Drop)
