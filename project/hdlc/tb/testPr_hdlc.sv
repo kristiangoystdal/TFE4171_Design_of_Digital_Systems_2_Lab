@@ -91,7 +91,7 @@ program testPr_hdlc(
   // register, and that the Rx data buffer contains correct data.
   task VerifyEndFrame(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
-    // wait(uin_hdlc.Rx_Ready);
+    wait(uin_hdlc.Rx_Ready);
 
     ReadAddress(3'b010, ReadData); 
     
@@ -112,7 +112,7 @@ program testPr_hdlc(
   // register
   task VerifyFrameErrorReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
-    wait(uin_hdlc.Rx_Ready);
+    // wait(uin_hdlc.Rx_Ready);
 
     ReadAddress(3'b010, ReadData); 
 
