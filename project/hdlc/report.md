@@ -15,7 +15,7 @@
 | 12  | When a whole RX frame has been received, check if end of frame is generated.                                                                    |   Done   |
 | 13  | When receiving more than 128 bytes, `Rx Overflow` should be asserted.                                                                           |   Done   |
 | 14  | `Rx FrameSize` should equal the number of bytes received in a frame (max 126 bytes = 128 - 2 FCS bytes).                                        |   Done   |
-| 15  | `Rx Ready` should indicate byte(s) in RX buffer is ready to be read.                                                                            |   Done?   |
+| 15  | `Rx Ready` should indicate byte(s) in RX buffer is ready to be read.                                                                            |   Done   |
 | 16  | Non-byte aligned data or FCS error should result in frame error.                                                                                |   Done   |
 | 17  | `Tx Done` should be asserted when the entire TX buffer has been read for transmission.                                                          |   Done   |
 | 18  | `Tx Full` should be asserted after writing 126 or more bytes to the TX buffer (overflow).                                                       |   Done   |
