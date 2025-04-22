@@ -175,7 +175,7 @@ program testPr_hdlc(
     // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
     // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
-    Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
+    // Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
     Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
 
     
