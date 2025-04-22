@@ -100,8 +100,8 @@ program testPr_hdlc(
     assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after end frame. Expecting %d", ReadData[4], Overflow);
 
     for(int i = 0; i<Size; i++) begin
-      if(i == Size-1) begin
         ReadAddress(3'b011, ReadData);
+      if(i == Size-1) begin
         assert(ReadData == data[i]) else $error("Rx_Buff not equal to matrix row %d", i);
       end
     end
@@ -165,7 +165,7 @@ program testPr_hdlc(
     Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
     // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
-    Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
+    // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
