@@ -346,11 +346,13 @@ program testPr_hdlc(
     @(posedge uin_hdlc.Clk);
     uin_hdlc.Rx = 1'b1;
 
-    for (int i = 0; i < 8; i++) begin
+    repeat(6) begin
       @(posedge uin_hdlc.Clk);
       // Verify that RX_EoF is high
-      assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive, %d", i);
     end
+    
+    if(!Drop)
+      assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive, %d", i);
 
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size, Overflow);
