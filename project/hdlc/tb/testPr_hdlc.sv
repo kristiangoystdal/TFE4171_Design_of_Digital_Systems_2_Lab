@@ -112,14 +112,19 @@ program testPr_hdlc(
   // register
   task VerifyFrameErrorReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
-    // wait(uin_hdlc.Rx_Ready);
+    wait(uin_hdlc.Rx_FrameError);
 
     ReadAddress(3'b010, ReadData); 
 
-    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after frame error");
+    assert (ReadData[0] == 1'b0) else $error("Rx_Ready low after frame error");
     assert (ReadData[2] == 1'b1) else $error("Rx_FrameError low after frame error");
     assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after frame error");
     assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after frame error. Expecting %d", ReadData[4], Overflow);
+
+    for(int i = 0; i<Size; i++) begin
+      ReadAddress(3'b011, ReadData);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to matrix row %d", i);
+    end
 
   endtask
 
@@ -369,8 +374,7 @@ program testPr_hdlc(
       VerifyFrameErrorReceive(ReceiveData, Size, Overflow);
     else if(!SkipRead)
       VerifyNormalReceive(ReceiveData, Size, Overflow);
-      // VerifyEndFrame(ReceiveData, Size, Overflow);
-    VerifyRX_FrameSize(Size);
+      VerifyRX_FrameSize(Size);
 
     #5000ns;
   endtask
