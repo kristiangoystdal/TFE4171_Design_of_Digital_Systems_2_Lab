@@ -117,10 +117,6 @@ Covergroup                                             Metric       Goal       B
     covered/total bins:                                    25         25          -                      
     missing/total bins:                                     0         25          -                      
     % Hit:                                            100.00%        100          -                      
-    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
-        covered/total bins:                                 3          3          -                      
-        missing/total bins:                                 0          3          -                      
-        % Hit:                                        100.00%        100          -                      
     Coverpoint Rx_Ready_cp                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
@@ -144,6 +140,10 @@ Covergroup                                             Metric       Goal       B
     Coverpoint Rx_FCSen_cp                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
+        covered/total bins:                                 3          3          -                      
+        missing/total bins:                                 0          3          -                      
         % Hit:                                        100.00%        100          -                      
     Coverpoint Tx_Done_cp                             100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
@@ -170,14 +170,6 @@ Covergroup                                             Metric       Goal       B
     covered/total bins:                                    25         25          -                      
     missing/total bins:                                     0         25          -                      
     % Hit:                                            100.00%        100          -                      
-    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
-        covered/total bins:                                 3          3          -                      
-        missing/total bins:                                 0          3          -                      
-        % Hit:                                        100.00%        100          -                      
-        bin small_                                       6686          1          -    Covered              
-        bin large_                                        986          1          -    Covered              
-        bin max                                           986          1          -    Covered              
-        default bin others                               1520                     -    Occurred             
     Coverpoint Rx_Ready_cp                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
@@ -214,6 +206,14 @@ Covergroup                                             Metric       Goal       B
         % Hit:                                        100.00%        100          -                      
         bin auto[0]                                      7069          1          -    Covered              
         bin auto[1]                                      2123          1          -    Covered              
+    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
+        covered/total bins:                                 3          3          -                      
+        missing/total bins:                                 0          3          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin small_                                       6686          1          -    Covered              
+        bin large_                                        986          1          -    Covered              
+        bin max                                           986          1          -    Covered              
+        default bin others                               1520                     -    Occurred             
     Coverpoint Tx_Done_cp                             100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
@@ -270,10 +270,6 @@ Covergroup                                             Metric       Goal       B
     covered/total bins:                                    25         25          -                      
     missing/total bins:                                     0         25          -                      
     % Hit:                                            100.00%        100          -                      
-    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
-        covered/total bins:                                 3          3          -                      
-        missing/total bins:                                 0          3          -                      
-        % Hit:                                        100.00%        100          -                      
     Coverpoint Rx_Ready_cp                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
@@ -297,6 +293,10 @@ Covergroup                                             Metric       Goal       B
     Coverpoint Rx_FCSen_cp                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
+        covered/total bins:                                 3          3          -                      
+        missing/total bins:                                 0          3          -                      
         % Hit:                                        100.00%        100          -                      
     Coverpoint Tx_Done_cp                             100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
@@ -323,14 +323,6 @@ Covergroup                                             Metric       Goal       B
     covered/total bins:                                    25         25          -                      
     missing/total bins:                                     0         25          -                      
     % Hit:                                            100.00%        100          -                      
-    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
-        covered/total bins:                                 3          3          -                      
-        missing/total bins:                                 0          3          -                      
-        % Hit:                                        100.00%        100          -                      
-        bin small_                                       6686          1          -    Covered              
-        bin large_                                        986          1          -    Covered              
-        bin max                                           986          1          -    Covered              
-        default bin others                               1520                     -    Occurred             
     Coverpoint Rx_Ready_cp                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
@@ -367,6 +359,14 @@ Covergroup                                             Metric       Goal       B
         % Hit:                                        100.00%        100          -                      
         bin auto[0]                                      7069          1          -    Covered              
         bin auto[1]                                      2123          1          -    Covered              
+    Coverpoint Rx_FrameSize_cp                        100.00%        100          -    Covered              
+        covered/total bins:                                 3          3          -                      
+        missing/total bins:                                 0          3          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin small_                                       6686          1          -    Covered              
+        bin large_                                        986          1          -    Covered              
+        bin max                                           986          1          -    Covered              
+        default bin others                               1520                     -    Occurred             
     Coverpoint Tx_Done_cp                             100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
