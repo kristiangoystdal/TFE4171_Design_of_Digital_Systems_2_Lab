@@ -30,6 +30,7 @@ interface in_hdlc ();
   logic              Tx_ValidFrame;
   logic              Tx_AbortedTrans;
   logic              Tx_Full;
+  logic [7:0]        Tx_FrameSize;
 
   // RX
   logic Rx;
@@ -58,5 +59,11 @@ interface in_hdlc ();
   logic       Rx_StopFCS;
   logic       RxD;
   logic       ZeroDetect;
+
+  // Rx status
+  logic [7:0] Rx_SC;
+
+  // Tx status
+  logic [7:0] Tx_SC;
 
 endinterface

@@ -43,9 +43,10 @@ program testPr_hdlc(
     assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after abort");
     assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after abort");
 
-    ReadAddress(3'b011, ReadData);
-    
-    assert(ReadData == 8'h00) else $error("Rx_Buff not empty after abort");
+    for(int i = 0; i<Size; i++) begin
+      ReadAddress(3'b011, ReadData);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to zero after abort in row %d", i);
+    end
 
   endtask
 
@@ -61,9 +62,10 @@ program testPr_hdlc(
     assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after drop");
     assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after drop. Expecting %d", ReadData[4], Overflow);
 
-    ReadAddress(3'b011, ReadData);
-    
-    assert(ReadData == 8'h00) else $error("Rx_Buff not empty after abort");
+    for(int i = 0; i<Size; i++) begin
+      ReadAddress(3'b011, ReadData);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to zero after drop in row %d", i);
+    end
 
   endtask
 
@@ -84,22 +86,38 @@ program testPr_hdlc(
       ReadAddress(3'b011, ReadData);
       assert(ReadData == data[i]) else $error("Rx_Buff not equal to matrix row %d", i);
     end
+
+    
   
   endtask
 
-  // VerifyNormalReceive should verify correct value in the Rx status/control
-  // register, and that the Rx data buffer contains correct data.
-  task VerifyOverflowReceive(logic [127:0][7:0] data, int Size);
+  // VerifyFrameError should verify correct value in the Rx status/control
+  // register
+  task VerifyFrameErrorReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
-    wait(uin_hdlc.Rx_Ready);
+    wait(uin_hdlc.Rx_FrameError);
 
     ReadAddress(3'b010, ReadData); 
 
-    assert (ReadData[0] == 1'b1) else $error("Rx_Ready low after overflow");
-    assert (ReadData[2] == 1'b0) else $error("Rx_FrameError high after overflow");
-    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after overflow");
-    assert (ReadData[4] == 1'b1) else $error("Rx_Overflow low after overflow");
+    assert (ReadData[0] == 1'b0) else $error("Rx_Ready high after frame error");
+    assert (ReadData[2] == 1'b1) else $error("Rx_FrameError low after frame error");
+    assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after frame error");
+    assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after frame error. Expecting %d", ReadData[4], Overflow);
 
+    for(int i = 0; i<Size; i++) begin
+      ReadAddress(3'b011, ReadData);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to zero after frame error in row %d", i);
+    end
+
+  endtask
+
+  // VerifyRX_FrameSize should verify correct frame size 
+  task VerifyRX_FrameSize(int Size);
+    int InternalSize;
+
+    InternalSize = uin_hdlc.Rx_FrameSize;
+    assert (InternalSize == Size) else $error("Rx_FrameSize = %d and not equal to expected Size %d", InternalSize, Size);
+    
   endtask
 
   /****************************************************************************
@@ -115,28 +133,19 @@ program testPr_hdlc(
 
     Init();
 
-    //Receive: Size, Abort, FCSerr, NonByteAligned, Overflow, Drop, SkipRead
-    // Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
-    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
-    // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
-    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
-    // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
-    // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
-    // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
-    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    // Receive: Size, Abort, FCSerr, NonByteAligned, Overflow, Drop, SkipRead
+    Receive( 10, 0, 0, 0, 0, 0, 0); //Normal
+    Receive(126, 0, 0, 0, 0, 0, 0); //Normal
+    Receive( 40, 1, 0, 0, 0, 0, 0); //Abort
+    Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
+    Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
+    Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
+    Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
 
     Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
     Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
     Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     Transmit( 40, 1, 0, 0, 0, 0, 0); //Abort
-    
     
 
     $display("*************************************************************");
@@ -265,12 +274,17 @@ program testPr_hdlc(
 
     //Calculate FCS bits;
     GenerateFCSBytes(ReceiveData, Size, FCSBytes);
+    if (FCSerr) begin
+      FCSBytes ^= 16'h0001;
+    end
     ReceiveData[Size]   = FCSBytes[7:0];
     ReceiveData[Size+1] = FCSBytes[15:8];
 
     //Enable FCS
     if(!Overflow && !NonByteAligned)
       WriteAddress(3'b010, 8'h20);
+    // else if (FCSerr)
+    //   WriteAddress(3'b010, 8'h04);    
     else
       WriteAddress(3'b010, 8'h00);
 
@@ -278,6 +292,14 @@ program testPr_hdlc(
     InsertFlagOrAbort(1);
     
     MakeRxStimulus(ReceiveData, Size + 2);
+    if (NonByteAligned) begin
+      // Inject 3 random bits
+      for (int i = 0; i < 3; i++) begin
+        @(posedge uin_hdlc.Clk);
+        uin_hdlc.Rx = $urandom;
+      end
+    end
+
     
     if(Overflow) begin
       OverflowData[0] = 8'h44;
@@ -297,20 +319,33 @@ program testPr_hdlc(
     @(posedge uin_hdlc.Clk);
     uin_hdlc.Rx = 1'b1;
 
-    repeat(8)
+    repeat(6) begin
       @(posedge uin_hdlc.Clk);
+      // Verify that RX_EoF is high
+    end
+    
+    if(!Drop)
+      assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive");
+
+    repeat(2) 
+      @(posedge uin_hdlc.Clk);
+
 
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size, Overflow);
     else if (Drop)
       VerifyDropReceive(ReceiveData, Size, Overflow);
-    else if(!SkipRead)
+    else if (FCSerr || NonByteAligned)
+      VerifyFrameErrorReceive(ReceiveData, Size, Overflow);
+    else if(!SkipRead) begin
       VerifyNormalReceive(ReceiveData, Size, Overflow);
+      VerifyRX_FrameSize(Size);
+    end
 
     #5000ns;
   endtask
 
-  task GenerateFCSBytes(logic [127:0][7:0] data, int size, output logic[15:0] FCSBytes);
+  task GenerateFCSBytes(logic [150:0][7:0] data, int size, output logic[15:0] FCSBytes);
     logic [23:0] CheckReg;
     CheckReg[15:8]  = data[1];
     CheckReg[7:0]   = data[0];
@@ -356,22 +391,22 @@ program testPr_hdlc(
       assert(uin_hdlc.Tx == 1'b0) else $error("Error in flag sequence bit 7");
   endtask
 
-  task CheckFCSBytes(logic [127:0][7:0] TransmitData, int Size, logic [5:0] PrevBits);
+  task CheckFCSBytes(logic [150:0][7:0] TransmitData, int Size, logic [5:0] PrevBits);
     logic [15:0] FCSBytes;
-    GenerateFCSBytes(TransmitData, Size, FCSBytes);
+    GenerateFCSBytes(TransmitData, ((126 < Size) ? 126 : Size ), FCSBytes);
     for (int i = 0; i < 16; i++) begin
       @(posedge uin_hdlc.Clk);
       assert(uin_hdlc.Tx == FCSBytes[i]) else $error("FCS bit %0d has value %0d. Expecting %0d", i, uin_hdlc.Tx, FCSBytes[i]);
       PrevBits = {PrevBits[4:0], uin_hdlc.Tx};
-        if (PrevBits == 5'b11111) begin
-          @(posedge uin_hdlc.Clk);
-          assert(uin_hdlc.Tx == 'b0) else $error("Missing zero insertion");
-        end 
+      if (PrevBits == 5'b11111) begin
+        @(posedge uin_hdlc.Clk);
+        assert(uin_hdlc.Tx == 'b0) else $error("Missing zero insertion");
+      end 
     end
   endtask
 
   task Transmit(int Size, int Abort, int FCSerr, int NonByteAligned, int Overflow, int Drop, int SkipRead);
-    logic [127:0][7:0] TransmitData;
+    logic [150:0][7:0] TransmitData;
     logic   [2:0][7:0] OverflowData;
     logic [7:0] ReadData;
     logic [5:0] PrevBits; //TODO: WHY do I need this at 6 bits instead of 5 for stuff to work?
@@ -399,6 +434,10 @@ program testPr_hdlc(
     for (int i = 0; i < Size; i++) begin
       TransmitData[i] = $urandom;
     end
+
+    // Insert 2 zero bytes so FCS calculation works
+    TransmitData[Size] = 'h00;
+    TransmitData[Size+1] = 'h00;
    
     //Verify that the Tx buffer is empty
     ReadAddress(3'b000, ReadData);
@@ -412,6 +451,10 @@ program testPr_hdlc(
     //Verify Overflow
     ReadAddress(3'b000, ReadData);
     assert(ReadData[4] == Overflow) else $error("Tx_Overflow %0d. Expecting %0d", ReadData[4], Overflow);
+    if (Overflow) begin
+      TransmitData[126] = 0;
+      TransmitData[127] = 0;
+    end
 
     //Verify Tx_Full
     if (Size >= 126) begin
@@ -442,23 +485,28 @@ program testPr_hdlc(
         @(posedge uin_hdlc.Clk);
         assert(uin_hdlc.Tx == TransmitData[i][j]) else $error("Tx bitstream mimatch with data at byte %0d, bit %0d", i, j);
         PrevBits = {PrevBits[4:0], uin_hdlc.Tx}; 
-        if (PrevBits == 5'b11111) begin //TODO: WHY do I need to not specifify the correct 5 bits here for it to work
+        if (PrevBits == 5'b11111) begin //TODO: WHY do I need to not specify the correct 5 bits here for it to work
           @(posedge uin_hdlc.Clk);
           assert(uin_hdlc.Tx == 'b0) else $error("Missing zero insertion");
         end   
       end
+
+      if (Abort && (i == Size / 2)) begin
+        WriteAddress(3'b000, 8'h06);
+        repeat(2) @(posedge uin_hdlc.Clk);
+        assert(uin_hdlc.Tx_AbortedTrans == 'b1) else $error("Tx_AbortedTrans not high after Abort");
+        @(posedge uin_hdlc.Clk);
+        CheckFlagOrAbort(1);
+        break;
+      end
     end
 
-    //TODO: Getting lots of errors in here
-    CheckFCSBytes(TransmitData, Size, PrevBits);
 
-    /*if (Abort) begin
-      WriteAddress(3'b000, 8'h04);
-      @(posedge uin_hdlc.Tx_AbortedTrans);
-      CheckFlagOrAbort(1);
-    end else begin*/
-    CheckFlagOrAbort(Abort); // Not quite
-    //end
+    if (!Abort) begin
+      //TODO: Getting lots of errors in here
+      CheckFCSBytes(TransmitData, Size, PrevBits);
+      CheckFlagOrAbort(0);
+    end
 
     //Verify that the Tx buffer is empty
     ReadAddress(3'b000, ReadData);
