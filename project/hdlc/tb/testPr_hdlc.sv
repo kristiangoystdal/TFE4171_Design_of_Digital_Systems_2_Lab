@@ -351,9 +351,10 @@ program testPr_hdlc(
       VerifyDropReceive(ReceiveData, Size, Overflow);
     else if (FCSerr || NonByteAligned)
       VerifyFrameErrorReceive(ReceiveData, Size, Overflow);
-    else if(!SkipRead)
+    else if(!SkipRead) begin
       VerifyNormalReceive(ReceiveData, Size, Overflow);
       VerifyRX_FrameSize(Size);
+    end
 
     #5000ns;
   endtask
