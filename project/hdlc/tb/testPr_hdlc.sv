@@ -112,7 +112,7 @@ program testPr_hdlc(
   // register
   task VerifyFrameErrorReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
-    // wait(uin_hdlc.Rx_Ready);
+    wait(uin_hdlc.Rx_Ready);
 
     ReadAddress(3'b010, ReadData); 
 
@@ -174,7 +174,7 @@ program testPr_hdlc(
     // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
     // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
-    // Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
+    Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
     Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
 
     Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
