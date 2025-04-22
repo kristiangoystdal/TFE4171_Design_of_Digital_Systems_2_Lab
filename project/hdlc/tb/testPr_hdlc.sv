@@ -329,7 +329,7 @@ program testPr_hdlc(
       // Inject 3 random bits
       for (int i = 0; i < 3; i++) begin
         @(posedge uin_hdlc.Clk);
-        uin_hdlc.Rx = $urandom(0,1);
+        uin_hdlc.Rx = $urandom;
       end
     end
 
