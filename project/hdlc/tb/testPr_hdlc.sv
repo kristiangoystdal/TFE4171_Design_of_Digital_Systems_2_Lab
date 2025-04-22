@@ -73,9 +73,6 @@ program testPr_hdlc(
   // register, and that the Rx data buffer contains correct data.
   task VerifyNormalReceive(logic [127:0][7:0] data, int Size, int Overflow);
     logic [7:0] ReadData;
-    // Verify that RX_EoF is high
-    assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive");
-    
     wait(uin_hdlc.Rx_Ready);
 
     ReadAddress(3'b010, ReadData); 
@@ -349,8 +346,11 @@ program testPr_hdlc(
     @(posedge uin_hdlc.Clk);
     uin_hdlc.Rx = 1'b1;
 
-    repeat(8)
+    repeat(8) begin
       @(posedge uin_hdlc.Clk);
+      // Verify that RX_EoF is high
+      assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive");
+    end
 
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size, Overflow);
