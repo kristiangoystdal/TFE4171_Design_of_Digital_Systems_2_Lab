@@ -354,6 +354,10 @@ program testPr_hdlc(
     if(!Drop)
       assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive");
 
+    repeat(2) 
+      @(posedge uin_hdlc.Clk);
+
+
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size, Overflow);
     else if (Drop)
