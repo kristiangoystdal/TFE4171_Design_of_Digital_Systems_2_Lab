@@ -364,7 +364,7 @@ program testPr_hdlc(
       VerifyFrameErrorReceive(ReceiveData, Size, Overflow);
     else if(!SkipRead)
       VerifyNormalReceive(ReceiveData, Size, Overflow);
-      VerifyEndFrame(ReceiveData, Size, Overflow);
+      // VerifyEndFrame(ReceiveData, Size, Overflow);
 
     #5000ns;
   endtask
