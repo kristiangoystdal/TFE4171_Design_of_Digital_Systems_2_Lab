@@ -139,10 +139,11 @@ program testPr_hdlc(
 
   // VerifyRX_FrameSize should verify correct frame size 
   task VerifyRX_FrameSize(int Size);
-    logic [7:0] ReadData;
+    int InternalSize;
+
     wait(uin_hdlc.Rx_Ready);
 
-    int InternalSize = uin.hdlc.Rx_FrameSize;
+    InternalSize = uin.hdlc.Rx_FrameSize;
     assert (InternalSize == Size) else $error("Rx_FrameSize = %d and not equal to expected Size %d", InternalSize, Size);
     
   endtask
