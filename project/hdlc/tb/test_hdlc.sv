@@ -45,6 +45,10 @@ module test_hdlc ();
   assign uin_hdlc.RxD                = u_dut.RxD;
   assign uin_hdlc.ZeroDetect         = u_dut.u_RxChannel.ZeroDetect;
 
+  // Coverage for interal status registers
+  assign uin_hdlc.Rx_SC              = u_dut.u_AddressIF.Rx_SC;
+  assign uin_hdlc.Tx_SC              = u_dut.u_AddressIF.Tx_SC;
+
   //Clock
   always #250ns uin_hdlc.Clk = ~uin_hdlc.Clk;
 
@@ -73,6 +77,11 @@ module test_hdlc ();
 
   //Test program
   testPr_hdlc u_testPr(
+    .uin_hdlc (uin_hdlc)
+  );
+
+  //Coverage
+  coverage_tb u_coverage_tb(
     .uin_hdlc (uin_hdlc)
   );
 
