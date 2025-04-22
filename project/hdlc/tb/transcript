@@ -1,5 +1,5 @@
 # vsim -assertdebug -c -voptargs="+acc" test_hdlc bind_hdlc -do "log -r *; run -all; exit" 
-# Start time: 16:49:33 on Mar 31,2025
+# Start time: 14:15:05 on Apr 13,2025
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: ../rtl/TxFCS.sv(13): (vopt-13314) Defaulting port 'DataBuff' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Note: (vopt-143) Recognized 1 FSM in module "TxFCS(fast)".
@@ -7,11 +7,7 @@
 # ** Note: (vopt-143) Recognized 1 FSM in module "TxController(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "RxController(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "TxBuff(fast)".
-# ** Warning: ./test_hdlc.sv(45): (vopt-2685) [TFMPC] - Too few port connections for 'u_dut'.  Expected 13, found 10.
-# ** Warning: ./test_hdlc.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'Tx_Done'.
-# ** Warning: ./test_hdlc.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'TxEN'.
-# ** Warning: ./test_hdlc.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'Tx'.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=5.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
 # //  Questa Sim
 # //  Version 2021.4_2 linux Dec  4 2021
 # //
@@ -48,54 +44,185 @@
 #                    0 - Starting Test Program
 # *************************************************************
 # *************************************************************
-#                 1000 - Starting task Receive - Normal
+#                 1000 - Starting task Transmit - Normal
 # *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
+# ** Error: FCS bit 0 has value 0. Expecting x
+#    Time: 110250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 1 has value 0. Expecting x
+#    Time: 110750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 2 has value 1. Expecting x
+#    Time: 111250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 3 has value 1. Expecting x
+#    Time: 111750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 4 has value 0. Expecting x
+#    Time: 112250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 5 has value 1. Expecting x
+#    Time: 112750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 6 has value 0. Expecting x
+#    Time: 113250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 7 has value 0. Expecting x
+#    Time: 113750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 8 has value 0. Expecting x
+#    Time: 114250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 9 has value 1. Expecting x
+#    Time: 114750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 10 has value 1. Expecting x
+#    Time: 115250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 11 has value 1. Expecting x
+#    Time: 115750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 12 has value 0. Expecting x
+#    Time: 116250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 13 has value 1. Expecting x
+#    Time: 116750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 14 has value 0. Expecting x
+#    Time: 117250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 15 has value 1. Expecting x
+#    Time: 117750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
 # *************************************************************
-#                78250 - Starting task Receive - Abort
+#               123250 - Starting task Transmit - Normal
 # *************************************************************
-# PASS: Flag detect
-# PASS: Abort signal
+# ** Error: FCS bit 0 has value 0. Expecting x
+#    Time: 504250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 1 has value 1. Expecting x
+#    Time: 504750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 2 has value 1. Expecting x
+#    Time: 505250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 3 has value 1. Expecting x
+#    Time: 505750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 4 has value 0. Expecting x
+#    Time: 506250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 5 has value 1. Expecting x
+#    Time: 506750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 6 has value 1. Expecting x
+#    Time: 507250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 7 has value 0. Expecting x
+#    Time: 507750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 8 has value 1. Expecting x
+#    Time: 508250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 9 has value 1. Expecting x
+#    Time: 508750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 10 has value 1. Expecting x
+#    Time: 509250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 11 has value 1. Expecting x
+#    Time: 509750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 12 has value 0. Expecting x
+#    Time: 510250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 13 has value 0. Expecting x
+#    Time: 510750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 14 has value 0. Expecting x
+#    Time: 511250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 15 has value 0. Expecting x
+#    Time: 511750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
 # *************************************************************
-#               268250 - Starting task Receive - Overflow
+#               517250 - Starting task Transmit - Overflow
 # *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
+# ** Error: FCS bit 0 has value 0. Expecting x
+#    Time: 1683250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 1 has value 0. Expecting x
+#    Time: 1683750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 2 has value 1. Expecting x
+#    Time: 1684250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 3 has value 1. Expecting x
+#    Time: 1684750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 4 has value 1. Expecting x
+#    Time: 1685250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 5 has value 1. Expecting x
+#    Time: 1685750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 6 has value 0. Expecting x
+#    Time: 1686250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 7 has value 0. Expecting x
+#    Time: 1686750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 8 has value 0. Expecting x
+#    Time: 1687250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 9 has value 0. Expecting x
+#    Time: 1687750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 10 has value 1. Expecting x
+#    Time: 1688250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 11 has value 0. Expecting x
+#    Time: 1688750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 12 has value 0. Expecting x
+#    Time: 1689250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 13 has value 0. Expecting x
+#    Time: 1689750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 14 has value 1. Expecting x
+#    Time: 1690250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 15 has value 0. Expecting x
+#    Time: 1690750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
 # *************************************************************
-#               948250 - Starting task Receive - Drop
+#              1696250 - Starting task Transmit - Normal
 # *************************************************************
-# PASS: Flag detect
-# PASS: Abort signal
+# ** Error: FCS bit 0 has value 1. Expecting 0
+#    Time: 2856750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 1 has value 1. Expecting 0
+#    Time: 2857250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 2 has value 1. Expecting 0
+#    Time: 2857750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 4 has value 1. Expecting 0
+#    Time: 2859250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 5 has value 0. Expecting 1
+#    Time: 2859750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 7 has value 0. Expecting 1
+#    Time: 2860750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 9 has value 0. Expecting 1
+#    Time: 2861750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 10 has value 1. Expecting 0
+#    Time: 2862250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 14 has value 1. Expecting 0
+#    Time: 2864250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
 # *************************************************************
-#               994250 - Starting task Receive - Abort
+#              2870250 - Starting task Transmit - Normal
 # *************************************************************
-# PASS: Flag detect
-# PASS: Abort signal
+# ** Error: FCS bit 0 has value 0. Expecting 1
+#    Time: 4029750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 1 has value 1. Expecting 0
+#    Time: 4030250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 2 has value 1. Expecting 0
+#    Time: 4030750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 4 has value 0. Expecting 1
+#    Time: 4031750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 5 has value 0. Expecting 1
+#    Time: 4032250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 7 has value 0. Expecting 1
+#    Time: 4033250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 9 has value 0. Expecting 1
+#    Time: 4034250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 10 has value 0. Expecting 1
+#    Time: 4034750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 14 has value 1. Expecting 0
+#    Time: 4036750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
 # *************************************************************
-#              1546250 - Starting task Receive - Overflow
+#              4042750 - Starting task Transmit - Abort
 # *************************************************************
-# PASS: Flag detect
-# PASS: Abort signal
-# ** Error: Rx_AbortSignal high after drop
-#    Time: 2088250 ns  Scope: test_hdlc.u_testPr.VerifyDropReceive File: ./testPr_hdlc.sv Line: 60
+# ** Error: FCS bit 1 has value 1. Expecting 0
+#    Time: 4427250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 5 has value 1. Expecting 0
+#    Time: 4429250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 6 has value 0. Expecting 1
+#    Time: 4429750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 7 has value 1. Expecting 0
+#    Time: 4430250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 8 has value 0. Expecting 1
+#    Time: 4430750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 13 has value 0. Expecting 1
+#    Time: 4433250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 14 has value 0. Expecting 1
+#    Time: 4433750 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: FCS bit 15 has value 1. Expecting 0
+#    Time: 4434250 ns  Scope: test_hdlc.u_testPr.CheckFCSBytes File: ./testPr_hdlc.sv Line: 364
+# ** Error: Error in flag sequence bit 7 (abort bit)
+#    Time: 4438250 ns  Scope: test_hdlc.u_testPr.CheckFlagOrAbort File: ./testPr_hdlc.sv Line: 354
 # *************************************************************
-#              2094250 - Starting task Receive - Overflow
+#              4439750 - Finishing Test Program
 # *************************************************************
-# PASS: Flag detect
-# PASS: Flag detect
-# *************************************************************
-#              2771250 - Finishing Test Program
-# *************************************************************
-# ** Note: $stop    : ./testPr_hdlc.sv(137)
-#    Time: 2771250 ns  Iteration: 1  Instance: /test_hdlc/u_testPr
-# Break in Module testPr_hdlc at ./testPr_hdlc.sv line 137
-# Stopped at ./testPr_hdlc.sv line 137
+# ** Note: $stop    : ./testPr_hdlc.sv(145)
+#    Time: 4439750 ns  Iteration: 1  Instance: /test_hdlc/u_testPr
+# Break in Module testPr_hdlc at ./testPr_hdlc.sv line 145
+# Stopped at ./testPr_hdlc.sv line 145
 #  exit
 # *********************************
 # *                               *
 # * 	Assertion Errors: 0	  *
 # *                               *
 # *********************************
-# End time: 16:49:39 on Mar 31,2025, Elapsed time: 0:00:06
-# Errors: 1, Warnings: 5
+# End time: 14:15:10 on Apr 13,2025, Elapsed time: 0:00:05
+# Errors: 75, Warnings: 1

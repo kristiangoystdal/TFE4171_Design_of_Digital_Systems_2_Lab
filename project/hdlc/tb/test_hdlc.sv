@@ -15,7 +15,14 @@ module test_hdlc ();
   //Hdlc interface
   in_hdlc uin_hdlc();
 
-  //Internal assignments
+  //Internal TX assignments
+  assign uin_hdlc.Tx_DataArray      = u_dut.Tx_DataArray;
+  assign uin_hdlc.Tx_FCSDone        = u_dut.Tx_FCSDone;
+  assign uin_hdlc.Tx_ValidFrame     = u_dut.Tx_ValidFrame;
+  assign uin_hdlc.Tx_AbortedTrans   = u_dut.Tx_AbortedTrans;
+  assign uin_hdlc.Tx_Full           = u_dut.Tx_Full;
+
+  //Internal RX assignments
   assign uin_hdlc.Rx_ValidFrame      = u_dut.Rx_ValidFrame;
   assign uin_hdlc.Rx_Data            = u_dut.Rx_Data;
   assign uin_hdlc.Rx_AbortSignal     = u_dut.Rx_AbortSignal;
@@ -54,8 +61,15 @@ module test_hdlc ();
     // RX
     .Rx          (uin_hdlc.Rx),
     .RxEN        (uin_hdlc.RxEN),
-    .Rx_Ready    (uin_hdlc.Rx_Ready)
+    .Rx_Ready    (uin_hdlc.Rx_Ready),
+    // TX
+    .Tx          (uin_hdlc.Tx),
+    .TxEN        (uin_hdlc.TxEN),
+    .Tx_Done     (uin_hdlc.Tx_Done)
+
 );
+
+ 
 
   //Test program
   testPr_hdlc u_testPr(
