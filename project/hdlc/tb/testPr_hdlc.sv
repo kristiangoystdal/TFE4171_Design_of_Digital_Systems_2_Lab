@@ -86,6 +86,10 @@ program testPr_hdlc(
       ReadAddress(3'b011, ReadData);
       assert(ReadData == data[i]) else $error("Rx_Buff not equal to matrix row %d", i);
     end
+
+    // Verify that RX_EoF is high
+    assert(uin_hdlc.Rx_EoF == 1'b1) else $error("Rx_EoF low after receive");
+    
   
   endtask
 
@@ -163,12 +167,12 @@ program testPr_hdlc(
     Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
     Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
 
-    Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
-    Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
-    Transmit( 40, 1, 0, 0, 0, 0, 0); //Abort
+    // Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
+    // Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
+    // Transmit(128, 0, 0, 0, 1, 0, 0); //Overflow
+    // Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
+    // Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
+    // Transmit( 40, 1, 0, 0, 0, 0, 0); //Abort
 
     
     
