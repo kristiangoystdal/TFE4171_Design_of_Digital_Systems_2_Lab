@@ -142,8 +142,6 @@ program testPr_hdlc(
   task VerifyRX_FrameSize(int Size);
     int InternalSize;
 
-    wait(uin_hdlc.Rx_Ready);
-
     InternalSize = uin_hdlc.Rx_FrameSize;
     assert (InternalSize == Size) else $error("Rx_FrameSize = %d and not equal to expected Size %d", InternalSize, Size);
     
@@ -172,10 +170,12 @@ program testPr_hdlc(
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
     // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
-    // // Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
-    // // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
-    // // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
-    // // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    // Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
+    // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
+    // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
+    // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
+    // Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
+    Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
 
     Transmit( 10, 0, 0, 0, 0, 0, 0); //Normal
     Transmit( 40, 0, 0, 0, 0, 0, 0); //Normal
@@ -183,8 +183,6 @@ program testPr_hdlc(
     Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     Transmit(126, 0, 0, 0, 0, 0, 0); //Normal
     Transmit( 40, 1, 0, 0, 0, 0, 0); //Abort
-    // Receive(  5, 0, 1, 0, 0, 0, 0); //FCS error
-    Receive(  5, 0, 0, 1, 0, 0, 0); //Non-byte aligned
 
     
     
@@ -363,7 +361,6 @@ program testPr_hdlc(
     repeat(8)
       @(posedge uin_hdlc.Clk);
 
-    VerifyRX_FrameSize(Size);
     if(Abort)
       VerifyAbortReceive(ReceiveData, Size, Overflow);
     else if (Drop)
@@ -373,6 +370,7 @@ program testPr_hdlc(
     else if(!SkipRead)
       VerifyNormalReceive(ReceiveData, Size, Overflow);
       // VerifyEndFrame(ReceiveData, Size, Overflow);
+    VerifyRX_FrameSize(Size);
 
     #5000ns;
   endtask
