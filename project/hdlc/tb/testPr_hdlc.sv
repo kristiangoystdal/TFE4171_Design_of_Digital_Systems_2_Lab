@@ -43,9 +43,10 @@ program testPr_hdlc(
     assert (ReadData[3] == 1'b1) else $error("Rx_AbortSignal low after abort");
     assert (ReadData[4] == 1'b0) else $error("Rx_Overflow high after abort");
 
-    ReadAddress(3'b011, ReadData);
-    
-    assert(ReadData == 8'h00) else $error("Rx_Buff not empty after abort");
+    for(int i = 0; i<Size; i++) begin
+      ReadAddress(3'b011, ReadData);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to zero after abort in row %d", i);
+    end
 
   endtask
 
@@ -61,9 +62,10 @@ program testPr_hdlc(
     assert (ReadData[3] == 1'b0) else $error("Rx_AbortSignal high after drop");
     assert (ReadData[4] == Overflow) else $error("Rx_Overflow %d after drop. Expecting %d", ReadData[4], Overflow);
 
-    ReadAddress(3'b011, ReadData);
-    
-    assert(ReadData == 8'h00) else $error("Rx_Buff not empty after abort");
+    for(int i = 0; i<Size; i++) begin
+      ReadAddress(3'b011, ReadData);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to zero after drop in row %d", i);
+    end
 
   endtask
 
@@ -102,7 +104,7 @@ program testPr_hdlc(
 
     for(int i = 0; i<Size; i++) begin
       ReadAddress(3'b011, ReadData);
-      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to matrix row %d", i);
+      assert(ReadData == 8'h00) else $error("Rx_Buff not equal to zero after frame error in row %d", i);
     end
 
   endtask
@@ -150,11 +152,11 @@ program testPr_hdlc(
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 45, 0, 0, 0, 0, 0, 0); //Normal
     // Receive(126, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive(122, 1, 0, 0, 0, 0, 0); //Abort
+    Receive(122, 1, 0, 0, 0, 0, 0); //Abort
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow
     // Receive( 25, 0, 0, 0, 0, 0, 0); //Normal
     // Receive( 47, 0, 0, 0, 0, 0, 0); //Normal
-    // Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
+    Receive(  5, 0, 0, 0, 0, 1, 0); //Drop
     // Receive(126, 1, 0, 0, 1, 0, 0); //Overflow and Abort
     // Receive(126, 0, 0, 0, 1, 1, 0); //Overflow and Drop
     // Receive(126, 0, 0, 0, 1, 0, 0); //Overflow and Normal
