@@ -22,16 +22,24 @@ interface in_hdlc ();
   // TX
   logic Tx;
   logic TxEN;
+  logic Tx_Done;
+
+  // Tx
+  logic [127:0][7:0] Tx_DataArray;
+  logic              Tx_FCSDone;
+  logic              Tx_ValidFrame;
+  logic              Tx_AbortedTrans;
+  logic              Tx_Full;
 
   // RX
   logic Rx;
   logic RxEN;
+  logic Rx_Ready;
 
   // Rx
   logic       Rx_ValidFrame;
   logic [7:0] Rx_Data;
   logic       Rx_AbortSignal;
-  logic       Rx_Ready;
   logic       Rx_WrBuff;
   logic       Rx_EoF;
   logic [7:0] Rx_FrameSize;
